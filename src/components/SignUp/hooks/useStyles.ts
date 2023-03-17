@@ -1,5 +1,3 @@
-import { useColorModeValue } from "@chakra-ui/color-mode";
-
 const useStyles = () => {
   const boxStyles = {
     display: "flex",
