@@ -15,7 +15,7 @@ import AppRouter from "./AppRouter";
 import NavBar from "./layout/NavBar";
 
 export const App = () => {
-  useSupabaseClient();
+  // useSupabaseClient();
   return (
     <Box w="100%">
       <ChakraProvider theme={theme}>
