@@ -7,7 +7,7 @@ import SignUp from "./components/SignUp";
 const AppRouter = () => {
   return (
     <Box h="91%" padding="0 20px">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Home />} caseSensitive />
           <Route path="/signup" element={<SignUp />} />
