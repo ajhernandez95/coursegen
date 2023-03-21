@@ -13,6 +13,19 @@ import { Logo } from "./Logo";
 import { useSupabaseClient } from "./hooks/useSupabaseClient";
 import AppRouter from "./AppRouter";
 import NavBar from "./layout/NavBar";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./components/Home";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  { path: "/signup", element: <SignUp /> },
+  { path: "/login", element: <Login /> },
+]);
 
 export const App = () => {
   // useSupabaseClient();
@@ -20,7 +33,7 @@ export const App = () => {
     <Box w="100%">
       <ChakraProvider theme={theme}>
         <NavBar />
-        <AppRouter />
+        <RouterProvider router={router} />
       </ChakraProvider>
     </Box>
   );
