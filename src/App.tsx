@@ -1,17 +1,7 @@
 import * as React from "react";
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react";
-import { Logo } from "./Logo";
+import { ChakraProvider, Box, theme } from "@chakra-ui/react";
+
 import { useSupabaseClient } from "./hooks/useSupabaseClient";
-import AppRouter from "./AppRouter";
 import NavBar from "./layout/NavBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
@@ -28,7 +18,7 @@ const router = createBrowserRouter([
 ]);
 
 export const App = () => {
-  // useSupabaseClient();
+  useSupabaseClient();
   return (
     <Box w="100%">
       <ChakraProvider theme={theme}>
