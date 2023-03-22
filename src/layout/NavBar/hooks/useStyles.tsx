@@ -2,6 +2,7 @@ const useStyles = () => {
   const navbarStyles = {
     h: "60px",
     display: "flex",
+    alignItems: "center",
     justifyContent: "space-between",
     padding: "5px 20px",
   };
