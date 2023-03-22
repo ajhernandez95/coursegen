@@ -3,5 +3,10 @@
   "clean_urls": false,
   "routes": {
     "/**": "index.html"
+  },
+  "headers": {
+    "/**": {
+      "Cache-Control": "max-age=0"
+    }
   }
 }

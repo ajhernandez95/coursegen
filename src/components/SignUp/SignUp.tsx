@@ -10,19 +10,20 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import useSignUp from "./hooks/useSignUp";
 import useStyles from "./hooks/useStyles";
 
 const SignUp = () => {
   const { boxStyles, cardStyles, textStyles, formControlStyles, buttonStyles } =
     useStyles();
+  const { handleSignUp } = useSignUp();
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => handleSignUp({ ...data });
 
   return (
     <Box {...boxStyles}>
