@@ -2,16 +2,16 @@ import { ChakraProvider, Box, theme } from "@chakra-ui/react";
 import NavBar from "./layout/NavBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
-import SignUp from "./components/SignUp";
-import Login from "./components/Login";
+import LoginSignUp from "./components/LogInSignUp";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <ProtectedRoute component={Home} />,
   },
-  { path: "/signup", element: <SignUp /> },
-  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <LoginSignUp startTab={1} /> },
+  { path: "/login", element: <LoginSignUp /> },
 ]);
 
 export const App = () => {

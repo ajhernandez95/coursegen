@@ -3,6 +3,11 @@ import { useContext } from "react";
 import { defaultSupabaseContext } from "../../../constants/supabase";
 import { SupabaseContext } from "../../../context/SupabaseContext";
 
+interface useSignUpProps {
+  email: string;
+  password: string;
+}
+
 interface useLogInProps {
   email: string;
   password: string;
@@ -11,6 +16,22 @@ interface useLogInProps {
 const useLogIn = () => {
   const { supabaseClient } =
     useContext(SupabaseContext) ?? defaultSupabaseContext;
+
+  const handleSignUp = async ({ email, password }: useSignUpProps) => {
+    try {
+      const res: AuthResponse | undefined = await supabaseClient?.auth.signUp({
+        email,
+        password,
+      });
+
+      if (res?.data) {
+        const { user, session } = res.data;
+        return { user, session };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleLogIn = async ({ email, password }: useLogInProps) => {
     try {
@@ -22,8 +43,6 @@ const useLogIn = () => {
 
       if (res?.data) {
         const { user, session } = res.data;
-
-        console.log("SUCCESS", user, session);
         return { user, session };
       }
     } catch (error) {
@@ -32,6 +51,7 @@ const useLogIn = () => {
   };
 
   return {
+    handleSignUp,
     handleLogIn,
   };
 };

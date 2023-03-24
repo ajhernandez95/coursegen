@@ -3,8 +3,8 @@ import { useContext } from "react";
 import {
   defaultSignOut,
   defaultSupabaseContext,
-} from "../../../constants/supabase";
-import { SupabaseContext } from "../../../context/SupabaseContext";
+} from "../../constants/supabase";
+import { SupabaseContext } from "../../context/SupabaseContext";
 
 const SignOutButton = () => {
   const { supabaseClient } =
