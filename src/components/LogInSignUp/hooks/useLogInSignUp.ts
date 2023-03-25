@@ -2,6 +2,7 @@ import { AuthResponse } from "@supabase/gotrue-js";
 import { useContext } from "react";
 import { defaultSupabaseContext } from "../../../constants/supabase";
 import { SupabaseContext } from "../../../context/SupabaseContext";
+import handleSupabaseResponse from "../../../util/handleSupabaseResponse";
 
 interface useSignUpProps {
   email: string;
@@ -23,11 +24,8 @@ const useLogIn = () => {
         email,
         password,
       });
-
-      if (res?.data) {
-        const { user, session } = res.data;
-        return { user, session };
-      }
+      console.log(res);
+      return handleSupabaseResponse(res);
     } catch (error) {
       console.log(error);
     }
@@ -41,10 +39,7 @@ const useLogIn = () => {
           password,
         });
 
-      if (res?.data) {
-        const { user, session } = res.data;
-        return { user, session };
-      }
+      return handleSupabaseResponse(res);
     } catch (error) {
       console.log(error);
     }

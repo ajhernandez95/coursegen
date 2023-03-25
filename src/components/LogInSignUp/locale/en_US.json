@@ -1,0 +1,10 @@
+{
+  "signUp": {
+    "signUpError": "Unable to create account",
+    "accountCreated": "Account Created",
+    "emailVerificationSent": "We've sent a verification email to your email address. Please check your inbox and follow the instructions in the email to verify your account."
+  },
+  "logIn": {
+    "invalidCredentials": "Invalid login credentials"
+  }
+}

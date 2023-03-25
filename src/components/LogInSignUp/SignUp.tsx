@@ -5,25 +5,49 @@ import {
   FormHelperText,
   FormLabel,
   Input,
-  Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import useLogInSignUp from "./hooks/useLogInSignUp";
 import useStyles from "./hooks/useStyles";
 import usePasswordStrength from "./hooks/usePasswordStrength";
+import en from "./locale/en_US.json";
 
 const SignUp = () => {
   const { formControlStyles, buttonStyles } = useStyles();
   const { handleSignUp } = useLogInSignUp();
+  const toast = useToast();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm();
   const strength = usePasswordStrength(watch("password"));
-  const onSubmit = (data: any) => handleSignUp({ ...data });
+  const onSubmit = async (data: any) => {
+    const { isSuccess } = await handleSignUp({ ...data });
+
+    if (isSuccess) {
+      toast({
+        title: en.signUp.accountCreated,
+        description: en.signUp.emailVerificationSent,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        description: en.signUp.signUpError,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+
+    reset();
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

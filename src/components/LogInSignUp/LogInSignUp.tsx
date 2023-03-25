@@ -11,13 +11,22 @@ import {
 import LogIn from "./LogIn";
 import useStyles from "./hooks/useStyles";
 import SignUp from "./SignUp";
+import { useContext } from "react";
+import { SupabaseContext } from "../../context/SupabaseContext";
+import { defaultSupabaseContext } from "../../constants/supabase";
+import { Navigate } from "react-router-dom";
 
 interface LogInSignUpProps {
   startTab?: number;
 }
 
 const LogInSignUp = ({ startTab = 0 }: LogInSignUpProps) => {
+  const { isLoggedIn } = useContext(SupabaseContext) ?? defaultSupabaseContext;
   const { boxStyles, cardStyles } = useStyles();
+
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Box {...boxStyles}>

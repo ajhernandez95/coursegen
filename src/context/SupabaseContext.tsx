@@ -21,7 +21,6 @@ export const SupabaseContextProvider = ({
   useEffect(() => {
     const { data: authListener } = supabaseClient.auth.onAuthStateChange(
       (event, session) => {
-        console.log(event, session);
         if (event === "SIGNED_IN") {
           setIsLoggedIn(true);
         } else if (event === "SIGNED_OUT") {
