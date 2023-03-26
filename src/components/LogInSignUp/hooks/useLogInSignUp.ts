@@ -1,6 +1,6 @@
 import { AuthResponse } from "@supabase/gotrue-js";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { useContext } from "react";
-import { defaultSupabaseContext } from "../../../constants/supabase";
 import { SupabaseContext } from "../../../context/SupabaseContext";
 import handleSupabaseResponse from "../../../util/handleSupabaseResponse";
 
@@ -15,8 +15,7 @@ interface useLogInProps {
 }
 
 const useLogIn = () => {
-  const { supabaseClient } =
-    useContext(SupabaseContext) ?? defaultSupabaseContext;
+  const { supabaseClient } = useContext(SupabaseContext);
 
   const handleSignUp = async ({ email, password }: useSignUpProps) => {
     try {

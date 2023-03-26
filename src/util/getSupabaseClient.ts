@@ -1,6 +1,10 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-export const useSupabaseClient = () => {
+interface IGetSupabaseClient {
+  supabase: SupabaseClient;
+}
+
+export const getSupabaseClient = (): IGetSupabaseClient => {
   const supabaseAnonKey = process.env
     .REACT_APP_SUPABASE_TEST_ANON_KEY as string;
   const supabaseApiUrl = process.env.REACT_APP_SUPABASE_TEST_API_URL as string;

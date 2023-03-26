@@ -1,14 +1,10 @@
 import { Button } from "@chakra-ui/button";
 import { useContext } from "react";
-import {
-  defaultSignOut,
-  defaultSupabaseContext,
-} from "../../constants/supabase";
+import { defaultSignOut } from "../../constants/supabase";
 import { SupabaseContext } from "../../context/SupabaseContext";
 
 const SignOutButton = () => {
-  const { supabaseClient } =
-    useContext(SupabaseContext) ?? defaultSupabaseContext;
+  const { supabaseClient } = useContext(SupabaseContext);
 
   const handleSignOut = async () => {
     const { error } = (await supabaseClient?.auth.signOut()) ?? defaultSignOut;

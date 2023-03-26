@@ -1,21 +1,24 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createContext, useState, ReactNode, useEffect } from "react";
-import { useSupabaseClient } from "../hooks/useSupabaseClient";
+import { getSupabaseClient } from "../util/getSupabaseClient";
 
 interface ISupabaseContext {
   supabaseClient: SupabaseClient;
   isLoggedIn: boolean;
 }
 
-export const SupabaseContext = createContext<ISupabaseContext | null>(null);
+export const SupabaseContext = createContext<ISupabaseContext>({
+  supabaseClient: getSupabaseClient().supabase,
+  isLoggedIn: false,
+});
+
 export const SupabaseContextProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => {
-  const { supabase }: { supabase: SupabaseClient } = useSupabaseClient();
-  const [supabaseClient, setSupabaseClient] =
-    useState<SupabaseClient>(supabase);
+  const { supabase }: { supabase: SupabaseClient } = getSupabaseClient();
+  const [supabaseClient] = useState<SupabaseClient>(supabase);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {

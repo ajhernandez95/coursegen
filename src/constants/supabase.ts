@@ -5,6 +5,7 @@ export const defaultSupabaseContext = {
       signInWithPassword: () => undefined,
       signOut: () => undefined,
     },
+    fetch: () => undefined,
   },
   isLoggedIn: false,
 };
