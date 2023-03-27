@@ -23,7 +23,6 @@ const useLogIn = () => {
         email,
         password,
       });
-      console.log(res);
       return handleSupabaseResponse(res);
     } catch (error) {
       console.log(error);

@@ -1,13 +1,13 @@
-import { Text } from "@chakra-ui/layout";
-import { Link } from "react-router-dom";
+import { Box } from "@chakra-ui/layout";
+import CourseOutline from "../CourseOutline";
 import CourseSearch from "../CourseSearch";
-import Input from "../Shared/Input";
 
 const Home = () => {
   return (
-    <div>
+    <Box p="0 10%">
       <CourseSearch></CourseSearch>
-    </div>
+      <CourseOutline></CourseOutline>
+    </Box>
   );
 };
 

@@ -1,6 +1,6 @@
 export const handleSupabaseResponse = (response: any): any => {
   let result = {};
-  console.log(response);
+
   if (response?.error) {
     const err = response.error;
     result = {

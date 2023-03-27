@@ -1,17 +1,11 @@
-import React from "react";
-
 const useStyles = () => {
   const boxContainer = {
-    padding: "0 10rem",
-    margin: "auto",
+    padding: ["0 2rem", "0 10rem"],
+    margin: "0 auto 0 auto",
   };
 
-  const formContainer = {
-    width: "100%",
-  };
   return {
     boxContainer,
-    formContainer,
   };
 };
 

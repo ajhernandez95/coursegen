@@ -1,15 +1,6 @@
-export const defaultSupabaseContext = {
-  supabaseClient: {
-    auth: {
-      signUp: () => undefined,
-      signInWithPassword: () => undefined,
-      signOut: () => undefined,
-    },
-    fetch: () => undefined,
-  },
-  isLoggedIn: false,
-};
+import { getSupabaseClient } from "../util/getSupabaseClient";
 
-export const defaultSignOut = {
-  error: undefined,
+export const defaultSupabaseContext = {
+  supabaseClient: getSupabaseClient().supabase,
+  isLoggedIn: false,
 };

@@ -6,6 +6,7 @@ import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { SupabaseContextProvider } from "./context/SupabaseContext";
+import { CourseOutlineContextProvider } from "./context/CourseOutlineContext";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Failed to find the root element");
@@ -14,8 +15,10 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <SupabaseContextProvider>
-      <ColorModeScript />
-      <App />
+      <CourseOutlineContextProvider>
+        <ColorModeScript />
+        <App />
+      </CourseOutlineContextProvider>
     </SupabaseContextProvider>
   </React.StrictMode>
 );

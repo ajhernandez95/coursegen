@@ -5,17 +5,22 @@ const useCourseSearch = () => {
   const { supabaseClient } = useContext(SupabaseContext);
 
   const handleSearch = async ({ query }: { query: string }) => {
-    console.log(query);
-    const res = await supabaseClient.functions.invoke("new_course", {
-      body: {
-        subject: "The Space Race",
-        proficiency: "Basic",
-        section_count: 5,
-        max_tokens: 3000,
-      },
-    });
-
-    console.log(res);
+    const { data, error } = await supabaseClient.functions.invoke(
+      "new_course",
+      {
+        body: {
+          subject: query,
+          proficiency: "Beginner",
+          section_count: 5,
+          max_tokens: 3000,
+        },
+      }
+    );
+    // Add handleSupabaseResponse????
+    return {
+      data,
+      error,
+    };
   };
   return {
     handleSearch,
