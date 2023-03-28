@@ -26,7 +26,6 @@ const CourseSearch = () => {
     {
       enabled: shouldSearch,
       onSuccess: ({ data: { Course: course, Sections: sections } }) => {
-        console.log(data);
         setShouldSearch(false);
         setOutline({ course, sections });
         setIsSearching(false);
