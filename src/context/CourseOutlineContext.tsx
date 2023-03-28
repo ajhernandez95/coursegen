@@ -1,7 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 import { createContext, useState, ReactNode, useEffect } from "react";
 import { Outline } from "../components/CourseOutline/types";
-import { defaultCourseOutline } from "../constants/course";
+import {
+  defaultCourseOutline,
+  defaultProficiency,
+  defaultSectionCount,
+} from "../constants/course";
 
 interface ICourseOutlineContext {
   outline: Outline;
@@ -17,6 +21,10 @@ interface ICourseOutlineContext {
   >;
   subjectSearch: string;
   setSubjectSearch: Dispatch<SetStateAction<string>>;
+  sectionCount: string;
+  setSectionCount: Dispatch<SetStateAction<string>>;
+  proficiency: string;
+  setProficiency: Dispatch<SetStateAction<string>>;
   isSearching: boolean;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
 }
@@ -26,8 +34,12 @@ export const CourseOutlineContext = createContext<ICourseOutlineContext>({
   setOutline: () => undefined,
   subjectSearch: "",
   setSubjectSearch: () => undefined,
-  isSearching: false,
+  proficiency: defaultProficiency,
+  setProficiency: () => undefined,
+  sectionCount: defaultSectionCount,
+  setSectionCount: () => undefined,
   setIsSearching: () => undefined,
+  isSearching: false,
 });
 
 export const CourseOutlineContextProvider = ({
@@ -37,6 +49,8 @@ export const CourseOutlineContextProvider = ({
 }) => {
   const [outline, setOutline] = useState(defaultCourseOutline);
   const [subjectSearch, setSubjectSearch] = useState("");
+  const [proficiency, setProficiency] = useState(defaultProficiency);
+  const [sectionCount, setSectionCount] = useState<string>(defaultSectionCount);
   const [isSearching, setIsSearching] = useState(false);
 
   return (
@@ -46,6 +60,10 @@ export const CourseOutlineContextProvider = ({
         setOutline,
         subjectSearch,
         setSubjectSearch,
+        proficiency,
+        setProficiency,
+        sectionCount,
+        setSectionCount,
         isSearching,
         setIsSearching,
       }}

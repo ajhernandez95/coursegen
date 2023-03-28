@@ -6,3 +6,6 @@ export const defaultCourseOutline = {
   },
   sections: [],
 };
+
+export const defaultProficiency = "beginner";
+export const defaultSectionCount = "5";

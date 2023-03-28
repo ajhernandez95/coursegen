@@ -1,18 +1,18 @@
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Text, Input, Button, Spinner } from "@chakra-ui/react";
+import { Box, Text, Input, Button } from "@chakra-ui/react";
 import useCourseSearch from "./hooks/useCourseSearch";
 import useStyles from "./hooks/useStyles";
-import { useContext, useEffect, useState } from "react";
 import { CourseOutlineContext } from "../../context/CourseOutlineContext";
 import { useQuery } from "react-query";
-import React from "react";
+import CourseProficiency from "./CourseProficiency";
+import CourseSectionCount from "./CourseSectionCount";
 
 const CourseSearch = () => {
   const { boxContainer } = useStyles();
   const { handleSearch } = useCourseSearch();
   const { setOutline, setSubjectSearch, setIsSearching } =
     useContext(CourseOutlineContext);
-  const [shouldSearch, setShouldSearch] = useState(false);
   const {
     register,
     handleSubmit,
@@ -20,13 +20,12 @@ const CourseSearch = () => {
     watch,
   } = useForm();
   const subjectSearch = watch("subjectSearch");
-  const { data, isLoading, isFetching } = useQuery(
+  const { data, isLoading, isFetching, refetch } = useQuery(
     ["courseSearch", subjectSearch],
-    () => handleSearch({ query: subjectSearch }),
+    () => handleSearch(),
     {
-      enabled: shouldSearch,
+      enabled: false,
       onSuccess: ({ data: { Course: course, Sections: sections } }) => {
-        setShouldSearch(false);
         setOutline({ course, sections });
         setIsSearching(false);
       },
@@ -34,8 +33,9 @@ const CourseSearch = () => {
   );
 
   const onSubmit = () => {
+    console.log(isFetching);
     if (!isFetching) {
-      setShouldSearch(true);
+      refetch();
       setIsSearching(true);
     }
   };
@@ -47,6 +47,10 @@ const CourseSearch = () => {
   return (
     <Box {...boxContainer}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Box display="flex" justifyContent="space-between">
+          <CourseProficiency></CourseProficiency>
+          <CourseSectionCount></CourseSectionCount>
+        </Box>
         <Text fontSize="3xl">What would you like to learn?</Text>
         <Box display="flex" gap={2}>
           <Input {...register("subjectSearch")}></Input>{" "}

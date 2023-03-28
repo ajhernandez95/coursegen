@@ -20,6 +20,9 @@ const CourseOutline = () => {
         <>
           <Skeleton height="40px" width="600px"></Skeleton>
           <SkeletonText mt="4" noOfLines={5} spacing="4" skeletonHeight="3" />
+          <br />
+          <Skeleton height="40px" width="600px"></Skeleton>
+          <SkeletonText mt="4" noOfLines={5} spacing="4" skeletonHeight="3" />
         </>
       ) : (
         <>
