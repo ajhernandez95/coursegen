@@ -16,12 +16,13 @@ const useCourseSearch = () => {
         },
       }
     );
-    // Add handleSupabaseResponse????
+
     return {
       data,
       error,
     };
   };
+
   return {
     handleSearch,
   };

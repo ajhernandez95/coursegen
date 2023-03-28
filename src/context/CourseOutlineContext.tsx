@@ -15,11 +15,19 @@ interface ICourseOutlineContext {
       sections: never[];
     }>
   >;
+  subjectSearch: string;
+  setSubjectSearch: Dispatch<SetStateAction<string>>;
+  isSearching: boolean;
+  setIsSearching: Dispatch<SetStateAction<boolean>>;
 }
 
 export const CourseOutlineContext = createContext<ICourseOutlineContext>({
   outline: defaultCourseOutline,
   setOutline: () => undefined,
+  subjectSearch: "",
+  setSubjectSearch: () => undefined,
+  isSearching: false,
+  setIsSearching: () => undefined,
 });
 
 export const CourseOutlineContextProvider = ({
@@ -28,12 +36,18 @@ export const CourseOutlineContextProvider = ({
   children: ReactNode;
 }) => {
   const [outline, setOutline] = useState(defaultCourseOutline);
+  const [subjectSearch, setSubjectSearch] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   return (
     <CourseOutlineContext.Provider
       value={{
         outline,
         setOutline,
+        subjectSearch,
+        setSubjectSearch,
+        isSearching,
+        setIsSearching,
       }}
     >
       {children}

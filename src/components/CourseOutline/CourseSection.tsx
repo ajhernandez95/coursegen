@@ -18,7 +18,7 @@ const CourseSection = ({ section }: CourseSectionProps) => {
 
   return (
     <Box>
-      <Accordion allowToggle>
+      <Accordion defaultIndex={[0]} allowToggle>
         <AccordionItem>
           <h2>
             <AccordionButton>

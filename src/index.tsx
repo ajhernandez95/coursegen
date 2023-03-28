@@ -7,17 +7,31 @@ import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { SupabaseContextProvider } from "./context/SupabaseContext";
 import { CourseOutlineContextProvider } from "./context/CourseOutlineContext";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Failed to find the root element");
 const root = ReactDOM.createRoot(container);
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+      cacheTime: Infinity,
+      staleTime: Infinity,
+    },
+  },
+});
 
 root.render(
   <React.StrictMode>
     <SupabaseContextProvider>
       <CourseOutlineContextProvider>
-        <ColorModeScript />
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <ColorModeScript />
+          <App />
+        </QueryClientProvider>
       </CourseOutlineContextProvider>
     </SupabaseContextProvider>
   </React.StrictMode>
