@@ -1,8 +1,8 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import { Skeleton, SkeletonText } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { CourseOutlineContext } from "../../context/CourseOutlineContext";
-import CourseSection from "./CourseSection";
+import CourseSections from "./CourseSections";
 
 const CourseOutline = () => {
   const {
@@ -10,7 +10,6 @@ const CourseOutline = () => {
       course: { title, dates, description },
       sections,
     },
-    subjectSearch,
     isSearching: isLoading,
   } = useContext(CourseOutlineContext);
 
@@ -32,9 +31,7 @@ const CourseOutline = () => {
           <Text m="1rem 0" fontSize="1xl">
             {description}
           </Text>
-          {sections?.map((section, i) => (
-            <CourseSection key={i} section={section}></CourseSection>
-          ))}
+          <CourseSections sections={sections}></CourseSections>
         </>
       )}
     </Box>

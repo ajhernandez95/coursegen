@@ -52,9 +52,11 @@ const CourseSearch = () => {
           <CourseSectionCount></CourseSectionCount>
         </Box>
         <Text fontSize="3xl">What would you like to learn?</Text>
-        <Box display="flex" gap={2}>
-          <Input {...register("subjectSearch")}></Input>{" "}
-          <Button type="submit">Search</Button>
+        <Input {...register("subjectSearch")}></Input>
+        <Box display="flex" justifyContent="center">
+          <Button size="lg" mt={5} type="submit">
+            Search
+          </Button>
         </Box>
       </form>
     </Box>
