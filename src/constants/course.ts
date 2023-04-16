@@ -3,6 +3,7 @@ export const defaultCourseOutline = {
     title: "",
     dates: "",
     description: "",
+    courseId: "",
   },
   sections: [],
 };

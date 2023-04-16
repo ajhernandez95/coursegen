@@ -4,7 +4,7 @@ import CourseSearch from "../CourseSearch";
 
 const Home = () => {
   return (
-    <Box p="0 10%">
+    <Box mt={100} padding={["0 2rem", "0 5rem", "0 10rem"]}>
       <CourseSearch></CourseSearch>
       <CourseOutline></CourseOutline>
     </Box>

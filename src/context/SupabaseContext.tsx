@@ -1,11 +1,21 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { createContext, useState, ReactNode, useEffect } from "react";
-import { getSupabaseClient } from "../util/getSupabaseClient";
+import { Session, User } from "@supabase/supabase-js";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+  useContext,
+  useCallback,
+} from "react";
+import { supabase } from "../util/supabase";
 import { defaultSupabaseContext } from "../constants/supabase";
+import { useNavigate } from "react-router-dom";
 
 interface ISupabaseContext {
-  supabaseClient: SupabaseClient;
-  isLoggedIn: boolean;
+  isLoading: boolean;
+  isLoggedIn: boolean | null;
+  user: User | null;
+  session: Session | null;
 }
 
 export const SupabaseContext = createContext<ISupabaseContext>(
@@ -17,15 +27,32 @@ export const SupabaseContextProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [supabaseClient] = useState<SupabaseClient>(
-    getSupabaseClient().supabase
-  );
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const { data: authListener } = supabaseClient.auth.onAuthStateChange(
+    // Handles initial check if user is logged in
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (!session) {
+        setSession(null);
+        setUser(null);
+        setIsLoggedIn(false);
+      } else {
+        setSession(session);
+        setUser(session?.user || null);
+        setIsLoggedIn(true);
+      }
+      setIsLoading(false);
+    });
+
+    // Subscribes to auth changes to update logged in state
+    const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        if (event === "SIGNED_IN") {
+        setSession(session);
+        setUser(session?.user || null);
+        if (event === "SIGNED_IN" && !isLoggedIn) {
           setIsLoggedIn(true);
         } else if (event === "SIGNED_OUT") {
           setIsLoggedIn(false);
@@ -40,8 +67,16 @@ export const SupabaseContextProvider = ({
   }, []);
 
   return (
-    <SupabaseContext.Provider value={{ supabaseClient, isLoggedIn }}>
+    <SupabaseContext.Provider value={{ isLoading, isLoggedIn, user, session }}>
       {children}
     </SupabaseContext.Provider>
   );
+};
+
+export const useSupabase = () => {
+  const context = useContext(SupabaseContext);
+  if (!context) {
+    throw new Error("useSupabase must be used within an AuthProvider");
+  }
+  return context;
 };

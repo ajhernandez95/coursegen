@@ -1,14 +1,14 @@
 const useStyles = () => {
   const navbarStyles = {
-    h: "60px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "5px 20px",
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "space-between",
+    // padding: "0 50px",
   };
 
   const textStyles = {
     fontSize: "3xl",
+    fontWeight: "bold",
   };
 
   return { navbarStyles, textStyles };

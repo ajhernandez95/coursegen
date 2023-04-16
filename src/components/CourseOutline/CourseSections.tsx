@@ -8,8 +8,8 @@ import {
   SimpleGrid,
   CardFooter,
   Button,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
 import { CourseSection as Section } from "./types";
 
 interface CourseSectionProps {
@@ -17,24 +17,33 @@ interface CourseSectionProps {
 }
 
 const CourseSections = ({ sections }: CourseSectionProps) => {
+  const bg = useColorModeValue("white", "whiteAlpha.900");
+  const color = useColorModeValue("black", "black");
   return Number(sections?.length) > 0 ? (
     <SimpleGrid
       spacing={4}
-      templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+      templateColumns="repeat(auto-fill, minmax(500px, 1fr))"
     >
-      {sections?.map(({ title, dates, description }, i) => {
+      {sections?.map(({ id, title, dates, description }, i) => {
         return (
-          <Card>
+          <Card bg={bg} color={color} key={i}>
             <CardHeader>
-              <Heading size="md">
-                {title} {dates && "(" + dates + ")"}
-              </Heading>
+              <Box display="flex" justifyContent="space-between">
+                <Heading size="md">
+                  {title} {dates && "(" + dates + ")"}
+                </Heading>
+              </Box>
             </CardHeader>
             <CardBody>
               <Text>{description}</Text>
             </CardBody>
             <CardFooter>
-              <Button variant="outline" leftIcon={<DeleteIcon />}>
+              <Button
+                colorScheme="blackAlpha"
+                variant="solid"
+                // isDisabled={true}
+                leftIcon={<DeleteIcon />}
+              >
                 Remove
               </Button>
             </CardFooter>

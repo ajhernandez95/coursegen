@@ -29,15 +29,7 @@ const SignUp = () => {
   const onSubmit = async (data: any) => {
     const { isSuccess } = await handleSignUp({ ...data });
 
-    if (isSuccess) {
-      toast({
-        title: en.signUp.accountCreated,
-        description: en.signUp.emailVerificationSent,
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-    } else {
+    if (!isSuccess) {
       toast({
         description: en.signUp.signUpError,
         status: "error",

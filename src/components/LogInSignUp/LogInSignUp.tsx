@@ -1,7 +1,9 @@
 import {
   Box,
+  BoxProps,
   Card,
   CardBody,
+  CardProps,
   Tab,
   TabList,
   TabPanel,
@@ -11,16 +13,16 @@ import {
 import LogIn from "./LogIn";
 import useStyles from "./hooks/useStyles";
 import SignUp from "./SignUp";
-import { useContext } from "react";
-import { SupabaseContext } from "../../context/SupabaseContext";
+import { FC } from "react";
+import { useSupabase } from "../../context/SupabaseContext";
 import { Navigate } from "react-router-dom";
 
 interface LogInSignUpProps {
   startTab?: number;
 }
 
-const LogInSignUp = ({ startTab = 0 }: LogInSignUpProps) => {
-  const { isLoggedIn } = useContext(SupabaseContext);
+const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
+  const { isLoggedIn } = useSupabase();
   const { boxStyles, cardStyles } = useStyles();
 
   if (isLoggedIn) {
@@ -28,8 +30,9 @@ const LogInSignUp = ({ startTab = 0 }: LogInSignUpProps) => {
   }
 
   return (
-    <Box {...boxStyles}>
-      <Card {...cardStyles}>
+    <Box {...(boxStyles as BoxProps)}>
+      {/** @ts-ignore */}
+      <Card {...(cardStyles as CardProps)}>
         <CardBody>
           <Tabs variant="soft-rounded" align="center" defaultIndex={startTab}>
             <TabList>

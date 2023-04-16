@@ -7,9 +7,11 @@ export interface Course {
   title: string;
   dates?: string;
   description: string;
+  courseId: string;
 }
 
-export interface CourseSection extends Omit<Course, "sections"> {
+export interface CourseSection extends Omit<Course, "courseId"> {
+  id: number;
   subsections?: CourseSubSection[];
 }
 

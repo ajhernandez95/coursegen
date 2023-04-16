@@ -1,6 +1,8 @@
-import { getSupabaseClient } from "../util/getSupabaseClient";
+import { supabase } from "../util/supabase";
 
 export const defaultSupabaseContext = {
-  supabaseClient: getSupabaseClient().supabase,
-  isLoggedIn: false,
+  isLoading: true,
+  isLoggedIn: null,
+  user: null,
+  session: null,
 };

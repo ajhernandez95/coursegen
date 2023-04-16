@@ -15,6 +15,7 @@ interface ICourseOutlineContext {
         title: string;
         dates: string;
         description: string;
+        courseId: string;
       };
       sections: never[];
     }>

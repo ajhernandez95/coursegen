@@ -1,40 +1,22 @@
 import { ColorModeScript } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
-import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { SupabaseContextProvider } from "./context/SupabaseContext";
-import { CourseOutlineContextProvider } from "./context/CourseOutlineContext";
-import { QueryClient, QueryClientProvider } from "react-query";
+import "./defaultStyles.css";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("Failed to find the root element");
 const root = ReactDOM.createRoot(container);
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      refetchOnMount: false,
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    },
-  },
-});
 
 root.render(
-  <React.StrictMode>
-    <SupabaseContextProvider>
-      <CourseOutlineContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <ColorModeScript />
-          <App />
-        </QueryClientProvider>
-      </CourseOutlineContextProvider>
-    </SupabaseContextProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <SupabaseContextProvider>
+    <ColorModeScript />
+    <App />
+  </SupabaseContextProvider>
+  // </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

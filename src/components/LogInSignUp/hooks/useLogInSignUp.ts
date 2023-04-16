@@ -1,7 +1,5 @@
 import { AuthResponse } from "@supabase/gotrue-js";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { useContext } from "react";
-import { SupabaseContext } from "../../../context/SupabaseContext";
+import { supabase } from "../../../util/supabase";
 import handleSupabaseResponse from "../../../util/handleSupabaseResponse";
 
 interface useSignUpProps {
@@ -15,31 +13,29 @@ interface useLogInProps {
 }
 
 const useLogIn = () => {
-  const { supabaseClient } = useContext(SupabaseContext);
-
   const handleSignUp = async ({ email, password }: useSignUpProps) => {
     try {
-      const res: AuthResponse | undefined = await supabaseClient?.auth.signUp({
+      const res: AuthResponse | undefined = await supabase?.auth.signUp({
         email,
         password,
       });
       return handleSupabaseResponse(res);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const handleLogIn = async ({ email, password }: useLogInProps) => {
     try {
       const res: AuthResponse | undefined =
-        await supabaseClient?.auth.signInWithPassword({
+        await supabase?.auth.signInWithPassword({
           email,
           password,
         });
 
       return handleSupabaseResponse(res);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

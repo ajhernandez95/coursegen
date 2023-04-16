@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Text, Input, Button } from "@chakra-ui/react";
+import { Box, Text, Input, Button, Heading } from "@chakra-ui/react";
 import useCourseSearch from "./hooks/useCourseSearch";
 import useStyles from "./hooks/useStyles";
 import { CourseOutlineContext } from "../../context/CourseOutlineContext";
@@ -9,7 +9,6 @@ import CourseProficiency from "./CourseProficiency";
 import CourseSectionCount from "./CourseSectionCount";
 
 const CourseSearch = () => {
-  const { boxContainer } = useStyles();
   const { handleSearch } = useCourseSearch();
   const { setOutline, setSubjectSearch, setIsSearching } =
     useContext(CourseOutlineContext);
@@ -33,7 +32,6 @@ const CourseSearch = () => {
   );
 
   const onSubmit = () => {
-    console.log(isFetching);
     if (!isFetching) {
       refetch();
       setIsSearching(true);
@@ -45,15 +43,31 @@ const CourseSearch = () => {
   }, [subjectSearch]);
 
   return (
-    <Box {...boxContainer}>
+    <Box mb={5}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box display="flex" justifyContent="space-between">
-          <CourseProficiency></CourseProficiency>
-          <CourseSectionCount></CourseSectionCount>
-        </Box>
-        <Text fontSize="3xl">What would you like to learn?</Text>
-        <Input {...register("subjectSearch")}></Input>
-        <Box display="flex" justifyContent="center">
+        {/* <Box display="flex" justifyContent="space-between">
+          <CourseProficiency />
+          <CourseSectionCount />
+        </Box> */}
+        {/* @ts-ignore */}
+        <Heading mb={6} size={["lg", "3xl", "4xl"]} textAlign="center">
+          I'm CourseGen, an AI powered course generator.
+        </Heading>
+
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Input
+            size={["sm", "md", "lg"]}
+            w="100%"
+            maxW={900}
+            mt={4}
+            placeholder="e.g., Introduction to Programming, History of Human Civilization"
+            {...register("subjectSearch")}
+          ></Input>
           <Button size="lg" mt={5} type="submit">
             Search
           </Button>

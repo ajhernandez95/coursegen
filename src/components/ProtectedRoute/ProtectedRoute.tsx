@@ -1,19 +1,22 @@
-import { FC, useContext } from "react";
-import { Navigate } from "react-router-dom";
-import { SupabaseContext } from "../../context/SupabaseContext";
+import { FC, useEffect } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { useSupabase } from "../../context/SupabaseContext";
+import { Box } from "@chakra-ui/react";
 
-interface ProtectedRouteProps {
-  component: FC;
+interface IProtectedRouteProps {
+  children: React.ReactNode;
 }
 
-const ProtectedRoute: FC<ProtectedRouteProps> = ({ component: Component }) => {
-  const { isLoggedIn } = useContext(SupabaseContext);
+export const ProtectedRoute: FC<IProtectedRouteProps> = ({ children }) => {
+  const { isLoggedIn, isLoading } = useSupabase();
 
-  if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  return <Component />;
+  return !isLoggedIn ? (
+    <Navigate to="/login" replace={true} />
+  ) : (
+    <Box h="100%">{children}</Box>
+  );
 };
-
-export default ProtectedRoute;

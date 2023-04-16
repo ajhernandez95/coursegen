@@ -1,41 +1,43 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
-import { Skeleton, SkeletonText } from "@chakra-ui/react";
+import { Button, Skeleton, SkeletonText, Spinner } from "@chakra-ui/react";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { CourseOutlineContext } from "../../context/CourseOutlineContext";
 import CourseSections from "./CourseSections";
 
 const CourseOutline = () => {
   const {
     outline: {
-      course: { title, dates, description },
+      course: { title, dates, description, courseId },
       sections,
     },
     isSearching: isLoading,
   } = useContext(CourseOutlineContext);
 
-  return (
-    <Box p="2rem 0">
+  return isLoading || courseId ? (
+    <Box pb={50}>
       {isLoading ? (
-        <>
-          <Skeleton height="40px" width="600px"></Skeleton>
-          <SkeletonText mt="4" noOfLines={5} spacing="4" skeletonHeight="3" />
-          <br />
-          <Skeleton height="40px" width="600px"></Skeleton>
-          <SkeletonText mt="4" noOfLines={5} spacing="4" skeletonHeight="3" />
-        </>
+        <Spinner />
       ) : (
-        <>
-          <Heading as="h3" size="lg">
-            {title} {dates && "(" + dates + ")"}
-          </Heading>
-          <Text m="1rem 0" fontSize="1xl">
-            {description}
-          </Text>
-          <CourseSections sections={sections}></CourseSections>
-        </>
+        courseId && (
+          <>
+            <Box display="flex" justifyContent={["space-between"]}>
+              <Heading as="h3" size="lg">
+                {title} {dates && "(" + dates + ")"}
+              </Heading>
+              <Link to={"/course/" + courseId}>
+                <Button>View Course</Button>
+              </Link>
+            </Box>
+            <Text m="1rem 0" fontSize="1xl">
+              {description}
+            </Text>
+            <CourseSections sections={sections}></CourseSections>
+          </>
+        )
       )}
     </Box>
-  );
+  ) : null;
 };
 
 export default CourseOutline;
