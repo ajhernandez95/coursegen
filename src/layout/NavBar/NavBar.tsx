@@ -19,7 +19,7 @@ const NavBar = () => {
         <a href="/">
           <Box display="flex" alignItems="center">
             <Box w={30} h={30}>
-              <img src={"http:\\\\localhost:3000/" + logo} alt="logo" />
+              <img src={"/" + logo} alt="logo" />
             </Box>
             {/** @ts-ignore */}
             <Text {...(textStyles as TextProps)}>CourseGen</Text>
