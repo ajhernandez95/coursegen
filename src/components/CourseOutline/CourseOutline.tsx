@@ -17,12 +17,17 @@ const CourseOutline = () => {
   return isLoading || courseId ? (
     <Box pb={50}>
       {isLoading ? (
-        <Box display="flex" justifyContent="center">
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
           <img
             src="/dancing-owl.gif"
             style={{ borderRadius: "50%", width: "200px", height: "200px" }}
           />
-          <Text>Generating Lesson Content</Text>
+          <Text mt={5}>Generating Course Modules</Text>
         </Box>
       ) : (
         courseId && (
@@ -43,20 +48,7 @@ const CourseOutline = () => {
         )
       )}
     </Box>
-  ) : (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <img
-        src="/dancing-owl.gif"
-        style={{ borderRadius: "50%", width: "200px", height: "200px" }}
-      />
-      <Text mt={5}>Generating Course Modules</Text>
-    </Box>
-  );
+  ) : null;
 };
 
 export default CourseOutline;
