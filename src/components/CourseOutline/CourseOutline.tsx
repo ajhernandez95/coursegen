@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
-import { Button, Skeleton, SkeletonText, Spinner } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CourseOutlineContext } from "../../context/CourseOutlineContext";
@@ -17,7 +17,13 @@ const CourseOutline = () => {
   return isLoading || courseId ? (
     <Box pb={50}>
       {isLoading ? (
-        <Spinner />
+        <Box display="flex" justifyContent="center">
+          <img
+            src="/dancing-owl.gif"
+            style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+          />
+          <Text>Generating Lesson Content</Text>
+        </Box>
       ) : (
         courseId && (
           <>
@@ -37,7 +43,20 @@ const CourseOutline = () => {
         )
       )}
     </Box>
-  ) : null;
+  ) : (
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <img
+        src="/dancing-owl.gif"
+        style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+      />
+      <Text mt={5}>Generating Course Modules</Text>
+    </Box>
+  );
 };
 
 export default CourseOutline;

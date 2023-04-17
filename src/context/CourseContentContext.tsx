@@ -8,6 +8,10 @@ interface ICourseContentContext {
   setCourse: Dispatch<SetStateAction<any>>;
   activeSection: any;
   setActiveSection: Dispatch<SetStateAction<any>>;
+  isFetchingCourse: boolean;
+  setIsFetchingCourse: Dispatch<SetStateAction<boolean>>;
+  isFetchingLesson: boolean;
+  setIsFetchingLesson: Dispatch<SetStateAction<boolean>>;
   clearCourseContentState: () => void;
 }
 
@@ -18,6 +22,10 @@ const defaultCourseContentContext = {
   setCourse: () => undefined,
   activeSection: undefined,
   setActiveSection: () => undefined,
+  isFetchingCourse: false,
+  setIsFetchingCourse: () => undefined,
+  isFetchingLesson: false,
+  setIsFetchingLesson: () => undefined,
   clearCourseContentState: () => undefined,
 };
 
@@ -33,6 +41,8 @@ export const CourseContentContextProvider = ({
   const [courseIdParam, setCourseIdParam] = useState<any>();
   const [course, setCourse] = useState<any>();
   const [activeSection, setActiveSection] = useState<any>();
+  const [isFetchingCourse, setIsFetchingCourse] = useState(false);
+  const [isFetchingLesson, setIsFetchingLesson] = useState(false);
 
   const clearCourseContentState = () => {
     setCourse(undefined);
@@ -48,6 +58,10 @@ export const CourseContentContextProvider = ({
         setCourse,
         activeSection,
         setActiveSection,
+        isFetchingCourse,
+        setIsFetchingCourse,
+        isFetchingLesson,
+        setIsFetchingLesson,
         clearCourseContentState,
       }}
     >

@@ -1,15 +1,18 @@
 import { supabase } from "../../../util/supabase";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCourseContentContext } from "../../../context/CourseContentContext";
 import { v4 as uuidv4 } from "uuid";
 
 const useCourseContent = () => {
   const { courseId } = useParams();
-  const { clearCourseContentState, setCourse, setActiveSection } =
-    useCourseContentContext();
-  const [isFetchingCourse, setIsFetchingCourse] = useState(false);
-  const [isFetchingLesson, setIsFetchingLesson] = useState(false);
+  const {
+    clearCourseContentState,
+    setCourse,
+    setActiveSection,
+    setIsFetchingCourse,
+    setIsFetchingLesson,
+  } = useCourseContentContext();
 
   const handleGetLesson = useCallback(
     async ({ courseId, sectionId }: { courseId: any; sectionId: any }) => {
@@ -25,7 +28,7 @@ const useCourseContent = () => {
           },
         })
         .then(({ data: lessonData }) => {
-          // setIsFetchingLesson(false);
+          setIsFetchingLesson(false);
           return lessonData;
         });
     },
@@ -118,8 +121,6 @@ const useCourseContent = () => {
     handleGetCourse,
     handleGetLesson,
     handleSetActiveLesson,
-    isFetchingCourse,
-    isFetchingLesson,
   };
 };
 
