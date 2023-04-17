@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/layout";
-import { useCourseContent } from "../../context/CourseContentContext";
+import { useCourseContentContext } from "../../context/CourseContentContext";
 import {
   Accordion,
   AccordionItem,
@@ -12,17 +12,20 @@ import {
   useDisclosure,
   IconButton,
   Show,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { ColorModeSwitcher } from "../../ColorModeSwitcher";
 import getContrastingTextColor from "../../util/getContrastingTextColors";
 import useColorSchemes from "../../hooks/useColorSchemes";
+import useCourseContent from "./hooks/useCourseContent";
 
 const CourseContentSidebar = () => {
-  const { course, activeSection, setActiveSection } = useCourseContent();
+  const { course, activeSection } = useCourseContentContext();
+  const { handleSetActiveLesson } = useCourseContent();
   const { sections } = course || {};
   const { colors: buttonColors } = useColorSchemes(sections);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const drawerBg = useColorModeValue("white", "#1A1C1E");
   const index = sections?.findIndex((obj: any) => {
     return obj?.id === activeSection?.id;
   });
@@ -42,7 +45,6 @@ const CourseContentSidebar = () => {
       <Show below="sm">
         <Box position="fixed" right="15px" bottom="10px">
           <IconButton
-            // variant={"solid"}
             size="lg"
             onClick={onOpen}
             aria-label="Search database"
@@ -52,12 +54,11 @@ const CourseContentSidebar = () => {
       </Show>
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-        <DrawerContent>
+        <DrawerContent background={drawerBg}>
           <DrawerHeader fontSize={["3xl"]} borderBottomWidth="1px">
             Sections
           </DrawerHeader>
           <DrawerBody>
-            <ColorModeSwitcher />
             {sections && (
               <Accordion defaultIndex={index}>
                 {sections?.map((section: any, i: number) => {
@@ -65,7 +66,7 @@ const CourseContentSidebar = () => {
                     <AccordionItem key={i}>
                       <h2>
                         <AccordionButton
-                          onClick={() => setActiveSection(section)}
+                          onClick={() => handleSetActiveLesson(section)}
                           _expanded={{
                             bg: buttonColors[i].bgColor,
                             color: getContrastingTextColor(

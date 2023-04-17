@@ -8,6 +8,7 @@ interface ICourseContentContext {
   setCourse: Dispatch<SetStateAction<any>>;
   activeSection: any;
   setActiveSection: Dispatch<SetStateAction<any>>;
+  clearCourseContentState: () => void;
 }
 
 const defaultCourseContentContext = {
@@ -17,6 +18,7 @@ const defaultCourseContentContext = {
   setCourse: () => undefined,
   activeSection: undefined,
   setActiveSection: () => undefined,
+  clearCourseContentState: () => undefined,
 };
 
 export const CourseContentContext = createContext<ICourseContentContext>(
@@ -32,6 +34,11 @@ export const CourseContentContextProvider = ({
   const [course, setCourse] = useState<any>();
   const [activeSection, setActiveSection] = useState<any>();
 
+  const clearCourseContentState = () => {
+    setCourse(undefined);
+    setActiveSection(undefined);
+  };
+
   return (
     <CourseContentContext.Provider
       value={{
@@ -41,6 +48,7 @@ export const CourseContentContextProvider = ({
         setCourse,
         activeSection,
         setActiveSection,
+        clearCourseContentState,
       }}
     >
       {children}
@@ -48,7 +56,7 @@ export const CourseContentContextProvider = ({
   );
 };
 
-export const useCourseContent = () => {
+export const useCourseContentContext = () => {
   const context = useContext(CourseContentContext);
   if (!context) {
     throw new Error(
