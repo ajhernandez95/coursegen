@@ -6,8 +6,7 @@ import CourseContentSidebar from "./CourseContentSidebar";
 import CourseContentSection from "./CourseContentSection";
 
 const CourseContent = () => {
-  const { handleGetCourse, isFetchingCourse, isFetchingLesson } =
-    useCourseContent();
+  const { handleGetCourse } = useCourseContent();
   const { courseId } = useParams();
 
   useEffect(() => {
@@ -15,7 +14,7 @@ const CourseContent = () => {
       handleGetCourse();
     }
   }, []);
-  console.log("CourseContent", isFetchingCourse, isFetchingLesson);
+
   return (
     <Box display="flex">
       <CourseContentSidebar />
