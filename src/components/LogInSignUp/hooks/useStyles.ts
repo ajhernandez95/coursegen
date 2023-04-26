@@ -1,4 +1,4 @@
-import { ResponsiveValue } from "@chakra-ui/react";
+import { ResponsiveValue, useColorModeValue } from "@chakra-ui/react";
 import type { Property } from "csstype";
 
 const useStyles = () => {
@@ -14,7 +14,7 @@ const useStyles = () => {
     justifyContent: "center",
   };
 
-  const cardStyles: { padding: string } = {
+  const cardStyles: { padding: string; bg?: string } = {
     padding: "10px 30px",
   };
 

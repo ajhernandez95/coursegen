@@ -26,7 +26,7 @@ const CourseSections = ({ sections }: CourseSectionProps) => {
     >
       {sections?.map(({ id, title, dates, description }, i) => {
         return (
-          <Card bg={bg} color={color} key={i}>
+          <Card key={i}>
             <CardHeader>
               <Box display="flex" justifyContent="space-between">
                 <Heading size="md">
@@ -39,7 +39,6 @@ const CourseSections = ({ sections }: CourseSectionProps) => {
             </CardBody>
             <CardFooter>
               <Button
-                colorScheme="blackAlpha"
                 variant="solid"
                 // isDisabled={true}
                 leftIcon={<DeleteIcon />}

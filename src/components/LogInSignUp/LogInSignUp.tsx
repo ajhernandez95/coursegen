@@ -9,6 +9,8 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import LogIn from "./LogIn";
 import useStyles from "./hooks/useStyles";
@@ -24,6 +26,7 @@ interface LogInSignUpProps {
 const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
   const { isLoggedIn } = useSupabase();
   const { boxStyles, cardStyles } = useStyles();
+  const tabColorScheme = useColorModeValue("gray", "gray");
 
   if (isLoggedIn) {
     return <Navigate to="/" />;
@@ -34,7 +37,12 @@ const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
       {/** @ts-ignore */}
       <Card {...(cardStyles as CardProps)}>
         <CardBody>
-          <Tabs variant="soft-rounded" align="center" defaultIndex={startTab}>
+          <Tabs
+            colorScheme={tabColorScheme}
+            variant="solid-rounded"
+            align="center"
+            defaultIndex={startTab}
+          >
             <TabList>
               <Tab>Log In</Tab>
               <Tab>Sign Up</Tab>
