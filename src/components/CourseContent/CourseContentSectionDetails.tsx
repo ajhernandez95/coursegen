@@ -40,7 +40,7 @@ const CourseContentSectionDetails = ({ content }: { content: any }) => {
           onMouseLeave={() => setIsHovered(false)}
           size={["2xl"]}
         >
-          {content.header} {isHovered && <ArrowForwardIcon boxSize={9} />}
+          {content.title} {isHovered && <ArrowForwardIcon boxSize={9} />}
         </Heading>
       </Box>
       <ReactMarkdown
@@ -72,7 +72,7 @@ const CourseContentSectionDetails = ({ content }: { content: any }) => {
           caption: ({ node, ...props }) => <TableCaption {...props} />,
         }}
       >
-        {content.text}
+        {content.content}
       </ReactMarkdown>
     </Box>
   );
