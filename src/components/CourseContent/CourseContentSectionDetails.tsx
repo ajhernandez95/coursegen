@@ -1,4 +1,3 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Heading,
   Box,
@@ -17,23 +16,16 @@ import {
   TableCaption,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const CourseContentSectionDetails = ({ content }: { content: any }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const headerBg = useColorModeValue("#EDF2F7", "#2C2D2E");
 
   return (
     <Box mb={8}>
       <Box bg={headerBg} p={5} borderRadius="5px" display="inline-block">
-        <Heading
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {content.title} {isHovered && <ArrowForwardIcon boxSize={9} />}
-        </Heading>
+        <Heading>{content.title}</Heading>
       </Box>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
