@@ -26,14 +26,12 @@ const CourseSections = ({ sections }: CourseSectionProps) => {
         return (
           <Card variant="outline" key={i}>
             <CardHeader>
-              <Box display="flex" justifyContent="space-between">
-                <Heading size="md">
-                  {title} {dates && "(" + dates + ")"}
-                </Heading>
-              </Box>
+              <Heading size="md">
+                {title} {dates && "(" + dates + ")"}
+              </Heading>
             </CardHeader>
             <CardBody pt="0">
-              <Text>{description}</Text>
+              <Text textAlign="left">{description}</Text>
             </CardBody>
           </Card>
         );
