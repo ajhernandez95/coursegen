@@ -84,7 +84,6 @@ const useCourseContent = () => {
 
   const handleSetActiveLesson = useCallback(
     async (lesson: any) => {
-      setIsFetchingLesson(true);
       if (lesson) {
         if (!lesson.content) {
           setIsFetchingLesson(true);
