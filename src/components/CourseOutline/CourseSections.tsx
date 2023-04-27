@@ -6,9 +6,6 @@ import {
   CardHeader,
   Heading,
   SimpleGrid,
-  CardFooter,
-  Button,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { CourseSection as Section } from "./types";
 
@@ -17,16 +14,14 @@ interface CourseSectionProps {
 }
 
 const CourseSections = ({ sections }: CourseSectionProps) => {
-  const bg = useColorModeValue("white", "whiteAlpha.900");
-  const color = useColorModeValue("black", "black");
   return Number(sections?.length) > 0 ? (
     <SimpleGrid
       spacing={4}
-      templateColumns="repeat(auto-fill, minmax(500px, 1fr))"
+      templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
     >
       {sections?.map(({ id, title, dates, description }, i) => {
         return (
-          <Card key={i}>
+          <Card variant="outline" key={i}>
             <CardHeader>
               <Box display="flex" justifyContent="space-between">
                 <Heading size="md">
@@ -34,18 +29,9 @@ const CourseSections = ({ sections }: CourseSectionProps) => {
                 </Heading>
               </Box>
             </CardHeader>
-            <CardBody>
+            <CardBody pt="0">
               <Text>{description}</Text>
             </CardBody>
-            <CardFooter>
-              <Button
-                variant="solid"
-                // isDisabled={true}
-                leftIcon={<DeleteIcon />}
-              >
-                Remove
-              </Button>
-            </CardFooter>
           </Card>
         );
       })}

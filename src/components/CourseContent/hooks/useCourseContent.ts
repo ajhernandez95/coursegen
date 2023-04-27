@@ -18,7 +18,7 @@ const useCourseContent = () => {
     async ({ courseId, sectionId }: { courseId: any; sectionId: any }) => {
       setIsFetchingLesson(true);
       return await supabase.functions
-        .invoke("section_content", {
+        .invoke("lesson_content", {
           body: {
             course_id: courseId,
             section_id: sectionId,
