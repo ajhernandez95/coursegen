@@ -38,7 +38,6 @@ const CourseContentSectionDetails = ({ content }: { content: any }) => {
         <Heading
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          size={["2xl"]}
         >
           {content.title} {isHovered && <ArrowForwardIcon boxSize={9} />}
         </Heading>
