@@ -1,4 +1,4 @@
-import { extendTheme, useColorModeValue } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
 const variantOutlined = () => ({

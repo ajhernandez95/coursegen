@@ -1,7 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useCourseContentContext } from "../../context/CourseContentContext";
 import CourseContentSectionDetails from "./CourseContentSectionDetails";
-import { useEffect } from "react";
 
 const CourseContentSection = () => {
   const { activeSection, isFetchingCourse, isFetchingLesson } =
@@ -11,10 +10,6 @@ const CourseContentSection = () => {
   if (typeof content === "string") {
     content = JSON.parse(content);
   }
-
-  useEffect(() => {
-    console.log(isFetchingCourse, isFetchingLesson);
-  }, [isFetchingCourse, isFetchingLesson]);
 
   const loadingGif = (
     <Box
@@ -33,7 +28,7 @@ const CourseContentSection = () => {
   );
 
   return activeSection && activeSection.content ? (
-    <Box pt={2} px={[10, 30]} mb={8}>
+    <Box pt={2} pl={["20px", "30px"]} pr={["20px", "100px"]} mb={8}>
       {isFetchingCourse}
       {isFetchingLesson}
       <Box>

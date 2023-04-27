@@ -23,18 +23,11 @@ import remarkGfm from "remark-gfm";
 
 const CourseContentSectionDetails = ({ content }: { content: any }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const headerBg = useColorModeValue("blue.300", "blue.300");
-  const headerTextColor = useColorModeValue("white", "blackAlpha.800");
+  const headerBg = useColorModeValue("#EDF2F7", "#2C2D2E");
 
   return (
     <Box mb={8}>
-      <Box
-        bg={headerBg}
-        color={headerTextColor}
-        p={5}
-        borderRadius="5px"
-        display="inline-block"
-      >
+      <Box bg={headerBg} p={5} borderRadius="5px" display="inline-block">
         <Heading
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

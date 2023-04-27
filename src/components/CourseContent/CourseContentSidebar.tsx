@@ -13,8 +13,10 @@ import {
   IconButton,
   Show,
   useColorModeValue,
+  Text,
 } from "@chakra-ui/react";
 import { CiViewList } from "react-icons/ci";
+import { IoMdClose } from "react-icons/io";
 import getContrastingTextColor from "../../util/getContrastingTextColors";
 import useColorSchemes from "../../hooks/useColorSchemes";
 import useCourseContent from "./hooks/useCourseContent";
@@ -26,6 +28,8 @@ const CourseContentSidebar = () => {
   const { colors: buttonColors } = useColorSchemes(sections);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const drawerBg = useColorModeValue("white", "#1A1C1E");
+  const floatingBtnBg = useColorModeValue("#EDF2F7", "#2C2D2E");
+  const activeModuleBg = useColorModeValue("#EDF2F7", "#2C2D2E");
   const index = sections?.findIndex((obj: any) => {
     return obj?.id === activeSection?.id;
   });
@@ -33,8 +37,9 @@ const CourseContentSidebar = () => {
   return (
     <Box>
       <Show above="sm">
-        <Box position="sticky" ml="15px" top="30px" left="15px">
+        <Box position="sticky" top="10px" pl="10px">
           <IconButton
+            bg={floatingBtnBg}
             size="lg"
             onClick={onOpen}
             aria-label="Search database"
@@ -43,8 +48,9 @@ const CourseContentSidebar = () => {
         </Box>
       </Show>
       <Show below="sm">
-        <Box position="fixed" right="15px" bottom="10px">
+        <Box position="fixed" bottom="10px" left="10px">
           <IconButton
+            bg={floatingBtnBg}
             size="lg"
             onClick={onOpen}
             aria-label="Search database"
@@ -56,7 +62,9 @@ const CourseContentSidebar = () => {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerContent background={drawerBg}>
           <DrawerHeader fontSize={["3xl"]} borderBottomWidth="1px">
-            Sections
+            <Box display="flex" justifyContent="space-between">
+              <Text>Sections</Text> <IoMdClose size={35} onClick={onClose} />
+            </Box>
           </DrawerHeader>
           <DrawerBody>
             {sections && (
@@ -68,10 +76,10 @@ const CourseContentSidebar = () => {
                         <AccordionButton
                           onClick={() => handleSetActiveLesson(section)}
                           _expanded={{
-                            bg: buttonColors[i].bgColor,
-                            color: getContrastingTextColor(
-                              buttonColors[i].bgColor
-                            ),
+                            bg: activeModuleBg,
+                            // color: getContrastingTextColor(
+                            //   buttonColors[i].bgColor
+                            // ),
                           }}
                         >
                           <Box as="span" flex="1" textAlign="left">

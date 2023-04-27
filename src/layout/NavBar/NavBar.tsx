@@ -4,7 +4,7 @@ import useStyles from "./hooks/useStyles";
 import SignOutButton from "../../components/SignOutButton";
 import SignInButton from "../../components/SignInButton";
 import { useSupabase } from "../../context/SupabaseContext";
-import { Flex, TextProps, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Show, TextProps, useColorModeValue } from "@chakra-ui/react";
 
 const NavBar = () => {
   const { textStyles } = useStyles();
@@ -22,12 +22,16 @@ const NavBar = () => {
               <img src={"/" + logo} alt="logo" />
             </Box>
             {/** @ts-ignore */}
-            <Text {...(textStyles as TextProps)}>CourseGen</Text>
+            <Show above="sm">
+              <Text {...(textStyles as TextProps)}>CourseGen</Text>
+            </Show>
           </Box>
         </a>
         <Box>
           <ColorModeSwitcher />
-          {isLoggedIn ? <SignOutButton /> : <SignInButton />}
+          <Show above="sm">
+            {isLoggedIn ? <SignOutButton /> : <SignInButton />}
+          </Show>
         </Box>
       </Flex>
     </Box>
