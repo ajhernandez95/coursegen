@@ -16,7 +16,7 @@ const CourseContent = () => {
   }, []);
 
   return (
-    <Box display="flex" height="100%" width="100%">
+    <Box display="flex" width="100%">
       <CourseContentSidebar />
       <CourseContentSection />
     </Box>

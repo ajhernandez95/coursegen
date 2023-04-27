@@ -33,7 +33,7 @@ const CourseContentSection = () => {
   );
 
   return activeSection && activeSection.content ? (
-    <Box pt={2} px={[10, 30]} mb={8} overflow="auto">
+    <Box pt={2} px={[10, 30]} mb={8}>
       {isFetchingCourse}
       {isFetchingLesson}
       <Box>
