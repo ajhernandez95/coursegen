@@ -14,7 +14,7 @@ import {
   Show,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { CiViewList } from "react-icons/ci";
 import getContrastingTextColor from "../../util/getContrastingTextColors";
 import useColorSchemes from "../../hooks/useColorSchemes";
 import useCourseContent from "./hooks/useCourseContent";
@@ -38,7 +38,7 @@ const CourseContentSidebar = () => {
             size="lg"
             onClick={onOpen}
             aria-label="Search database"
-            icon={<HamburgerIcon boxSize={6} />}
+            icon={<CiViewList size={35} />}
           />
         </Box>
       </Show>
@@ -48,7 +48,7 @@ const CourseContentSidebar = () => {
             size="lg"
             onClick={onOpen}
             aria-label="Search database"
-            icon={<HamburgerIcon boxSize={6} />}
+            icon={<CiViewList size={35} />}
           />
         </Box>
       </Show>
