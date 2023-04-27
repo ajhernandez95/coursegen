@@ -54,14 +54,7 @@ export const App = () => {
     <QueryClientProvider client={queryClient}>
       <CourseOutlineContextProvider>
         <CourseContentContextProvider>
-          <Box
-            position="fixed"
-            top="0"
-            left="0"
-            height="100%"
-            width="100%"
-            overflow="auto"
-          >
+          <Box position="fixed" top="0" left="0" height="90%" width="100%">
             <ChakraProvider theme={customTheme}>
               <NavBar />
               <RouterProvider router={router} />
