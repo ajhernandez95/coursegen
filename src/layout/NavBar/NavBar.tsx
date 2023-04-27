@@ -28,7 +28,7 @@ const NavBar = () => {
           </Box>
         </a>
         <Box>
-          <ColorModeSwitcher />
+          <ColorModeSwitcher mr={2} />
           <Show above="sm">
             {isLoggedIn ? <SignOutButton /> : <SignInButton />}
           </Show>
