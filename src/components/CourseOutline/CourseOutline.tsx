@@ -31,8 +31,13 @@ const CourseOutline = () => {
         </Box>
       ) : (
         courseId && (
-          <>
-            <Box display="flex" justifyContent={["space-between"]}>
+          <Box textAlign={["center", "left"]}>
+            <Box
+              display="flex"
+              justifyContent={["center", "space-between"]}
+              flexWrap="wrap"
+              gap={4}
+            >
               <Heading as="h3" size="lg">
                 {title} {dates && "(" + dates + ")"}
               </Heading>
@@ -44,7 +49,7 @@ const CourseOutline = () => {
               {description}
             </Text>
             <CourseSections sections={sections}></CourseSections>
-          </>
+          </Box>
         )
       )}
     </Box>
