@@ -16,31 +16,37 @@ const CourseContentSection = () => {
     console.log(isFetchingCourse, isFetchingLesson);
   }, [isFetchingCourse, isFetchingLesson]);
 
+  const loadingGif = (
+    <Box
+      position="absolute"
+      left="50%"
+      top="50%"
+      marginTop="-100px"
+      marginLeft="-100px"
+    >
+      <img
+        src="/dancing-owl.gif"
+        style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+      />
+      <Text mt={5}>Generating Lesson Content</Text>
+    </Box>
+  );
+
   return activeSection && activeSection.content ? (
     <Box pt={2} px={[10, 30]} mb={8} overflow="auto">
+      {isFetchingCourse}
+      {isFetchingLesson}
       <Box>
-        {isFetchingCourse || isFetchingLesson ? (
-          <Box
-            position="absolute"
-            left="50%"
-            top="50%"
-            marginTop="-100px"
-            marginLeft="-100px"
-          >
-            <img
-              src="/dancing-owl.gif"
-              style={{ borderRadius: "50%", width: "200px", height: "200px" }}
-            />
-            <Text mt={5}>Generating Lesson Content</Text>
-          </Box>
-        ) : (
-          content.map((content: any, i: number) => (
-            <CourseContentSectionDetails content={content} key={i} />
-          ))
-        )}
+        {isFetchingCourse || isFetchingLesson
+          ? loadingGif
+          : content.map((content: any, i: number) => (
+              <CourseContentSectionDetails content={content} key={i} />
+            ))}
       </Box>
     </Box>
-  ) : null;
+  ) : (
+    loadingGif
+  );
 };
 
 export default CourseContentSection;

@@ -16,7 +16,6 @@ const useCourseContent = () => {
 
   const handleGetLesson = useCallback(
     async ({ courseId, sectionId }: { courseId: any; sectionId: any }) => {
-      setIsFetchingLesson(true);
       return await supabase.functions
         .invoke("lesson_content", {
           body: {
@@ -37,6 +36,7 @@ const useCourseContent = () => {
 
   const handleGetCourse = useCallback(async () => {
     setIsFetchingCourse(true);
+    setIsFetchingLesson(true);
     clearCourseContentState();
 
     await supabase
@@ -78,6 +78,7 @@ const useCourseContent = () => {
             }
           }
           setIsFetchingCourse(false);
+          setIsFetchingLesson(false);
         }
       });
   }, [setIsFetchingCourse, setCourse, setActiveSection, handleGetLesson]);
