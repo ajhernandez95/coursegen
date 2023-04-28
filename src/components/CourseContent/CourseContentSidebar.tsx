@@ -62,8 +62,20 @@ const CourseContentSidebar = () => {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerContent background={drawerBg}>
           <DrawerHeader fontSize={["3xl"]} borderBottomWidth="1px">
-            <Box display="flex" justifyContent="space-between">
-              <Text>Sections</Text> <IoMdClose size={35} onClick={onClose} />
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Text>Lessons</Text>{" "}
+              <IconButton
+                variant="ghost"
+                onClick={onClose}
+                aria-label="Close drawer"
+                icon={
+                  <IoMdClose cursor="pointer" size={35} onClick={onClose} />
+                }
+              />
             </Box>
           </DrawerHeader>
           <DrawerBody>
@@ -77,9 +89,9 @@ const CourseContentSidebar = () => {
                           onClick={() => handleSetActiveLesson(section)}
                           _expanded={{
                             bg: activeModuleBg,
-                            // color: getContrastingTextColor(
-                            //   buttonColors[i].bgColor
-                            // ),
+                          }}
+                          _hover={{
+                            bg: activeModuleBg,
                           }}
                         >
                           <Box as="span" flex="1" textAlign="left">
@@ -87,10 +99,6 @@ const CourseContentSidebar = () => {
                           </Box>
                         </AccordionButton>
                       </h2>
-                      <AccordionPanel>
-                        - Sub Section 1 {<br />}- Sub Section 2 {<br />}- Sub
-                        Section 3
-                      </AccordionPanel>
                     </AccordionItem>
                   );
                 })}
