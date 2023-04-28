@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CourseOutlineContext } from "../../context/CourseOutlineContext";
 import CourseSections from "./CourseSections";
@@ -13,6 +13,19 @@ const CourseOutline = () => {
     },
     isSearching: isLoading,
   } = useContext(CourseOutlineContext);
+  const myRef = useRef<HTMLDivElement>(null);
+
+  const executeScroll = () => {
+    if (myRef.current) {
+      myRef.current.scrollIntoView();
+    }
+  };
+
+  useEffect(() => {
+    if (isLoading === false && courseId) {
+      executeScroll();
+    }
+  }, [isLoading, courseId]);
 
   return isLoading || courseId ? (
     <Box pb={50}>
@@ -31,7 +44,7 @@ const CourseOutline = () => {
         </Box>
       ) : (
         courseId && (
-          <Box textAlign={["center", "left"]}>
+          <Box ref={myRef} textAlign={["center", "left"]}>
             <Box
               display="flex"
               justifyContent={["center", "space-between"]}
