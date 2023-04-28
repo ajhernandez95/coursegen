@@ -13,6 +13,7 @@ interface ICourseContentContext {
   isFetchingLesson: boolean;
   setIsFetchingLesson: Dispatch<SetStateAction<boolean>>;
   clearCourseContentState: () => void;
+  copyCourseLink: () => void;
 }
 
 const defaultCourseContentContext = {
@@ -27,6 +28,7 @@ const defaultCourseContentContext = {
   isFetchingLesson: false,
   setIsFetchingLesson: () => undefined,
   clearCourseContentState: () => undefined,
+  copyCourseLink: () => undefined,
 };
 
 export const CourseContentContext = createContext<ICourseContentContext>(
@@ -49,6 +51,11 @@ export const CourseContentContextProvider = ({
     setActiveSection(undefined);
   };
 
+  const copyCourseLink = () => {
+    navigator.clipboard.writeText(
+      `${window.location.origin}/course/${courseIdParam}`
+    );
+  };
   return (
     <CourseContentContext.Provider
       value={{
@@ -63,6 +70,7 @@ export const CourseContentContextProvider = ({
         isFetchingLesson,
         setIsFetchingLesson,
         clearCourseContentState,
+        copyCourseLink,
       }}
     >
       {children}

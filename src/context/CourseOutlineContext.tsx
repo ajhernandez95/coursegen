@@ -6,6 +6,7 @@ import {
   defaultProficiency,
   defaultSectionCount,
 } from "../constants/course";
+import { useToast } from "@chakra-ui/react";
 
 interface ICourseOutlineContext {
   outline: Outline;
@@ -28,6 +29,7 @@ interface ICourseOutlineContext {
   setProficiency: Dispatch<SetStateAction<string>>;
   isSearching: boolean;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
+  copyCourseLink: () => void;
 }
 
 export const CourseOutlineContext = createContext<ICourseOutlineContext>({
@@ -41,6 +43,7 @@ export const CourseOutlineContext = createContext<ICourseOutlineContext>({
   setSectionCount: () => undefined,
   setIsSearching: () => undefined,
   isSearching: false,
+  copyCourseLink: () => undefined,
 });
 
 export const CourseOutlineContextProvider = ({
@@ -53,6 +56,20 @@ export const CourseOutlineContextProvider = ({
   const [proficiency, setProficiency] = useState(defaultProficiency);
   const [sectionCount, setSectionCount] = useState<string>(defaultSectionCount);
   const [isSearching, setIsSearching] = useState(false);
+  const toast = useToast();
+
+  const copyCourseLink = () => {
+    navigator.clipboard.writeText(
+      `${window.location.origin}/course/${outline.course.courseId}`
+    );
+
+    toast({
+      title: "Course Link Copied",
+      status: "info",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
 
   return (
     <CourseOutlineContext.Provider
@@ -67,6 +84,7 @@ export const CourseOutlineContextProvider = ({
         setSectionCount,
         isSearching,
         setIsSearching,
+        copyCourseLink,
       }}
     >
       {children}
