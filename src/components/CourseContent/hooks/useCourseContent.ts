@@ -86,6 +86,7 @@ const useCourseContent = () => {
   const handleSetActiveLesson = useCallback(
     async (lesson: any) => {
       if (lesson) {
+        setActiveSection(lesson);
         if (!lesson.content) {
           setIsFetchingLesson(true);
           const res = await handleGetLesson({
@@ -109,9 +110,9 @@ const useCourseContent = () => {
               };
             });
             lesson = res;
+            setActiveSection(lesson);
           }
         }
-        setActiveSection(lesson);
       }
     },
     [setActiveSection, handleGetLesson, setCourse]
