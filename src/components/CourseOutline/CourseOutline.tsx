@@ -17,7 +17,7 @@ const CourseOutline = () => {
 
   const executeScroll = () => {
     if (myRef.current) {
-      myRef.current.scrollIntoView();
+      myRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
