@@ -1,17 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Text, Input, Button, Heading } from "@chakra-ui/react";
+import { Box, Input, Button, Heading } from "@chakra-ui/react";
 import useCourseSearch from "./hooks/useCourseSearch";
-import useStyles from "./hooks/useStyles";
-import { CourseOutlineContext } from "../../context/CourseOutlineContext";
 import { useQuery } from "react-query";
-import CourseProficiency from "./CourseProficiency";
-import CourseSectionCount from "./CourseSectionCount";
+import handleSupabaseResponse from "../../util/handleSupabaseResponse";
+import { useCourseContext } from "../../context/CourseContext";
 
 const CourseSearch = () => {
   const { handleSearch } = useCourseSearch();
-  const { setOutline, setSearch, setIsSearching } =
-    useContext(CourseOutlineContext);
+  const { setCourse, setSearch, setIsSearching } = useCourseContext();
   const {
     register,
     handleSubmit,
@@ -24,8 +21,18 @@ const CourseSearch = () => {
     () => handleSearch(),
     {
       enabled: false,
-      onSuccess: ({ data: { Course: course, Sections: sections } }) => {
-        setOutline({ course, sections });
+      onSuccess: (response) => {
+        console.log(response);
+        const parsedRes = handleSupabaseResponse(response);
+        console.log(parsedRes);
+        if (parsedRes.isSuccess) {
+          setCourse(parsedRes);
+        }
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+      onSettled: () => {
         setIsSearching(false);
       },
     }

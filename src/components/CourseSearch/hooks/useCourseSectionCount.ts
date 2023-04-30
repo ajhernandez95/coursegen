@@ -1,12 +1,11 @@
-import { CourseOutlineContext } from "../../../context/CourseOutlineContext";
-import { useContext, useState } from "react";
+import { useCourseContext } from "../../../context/CourseContext";
 
 interface handleChangeParams {
   newCount: string;
 }
 
 const useCourseSectionCount = () => {
-  const { sectionCount, setSectionCount } = useContext(CourseOutlineContext);
+  const { sectionCount, setSectionCount } = useCourseContext();
 
   const handleChange = ({ newCount }: handleChangeParams) => {
     setSectionCount(newCount);

@@ -1,10 +1,10 @@
 import { Box, Text } from "@chakra-ui/react";
-import { useCourseContentContext } from "../../context/CourseContentContext";
+import { useCourseContext } from "../../context/CourseContext";
 import CourseContentSectionDetails from "./CourseContentSectionDetails";
 
 const CourseContentSection = () => {
   const { activeSection, isFetchingCourse, isFetchingLesson } =
-    useCourseContentContext();
+    useCourseContext();
   let { content } = activeSection || {};
 
   if (typeof content === "string") {

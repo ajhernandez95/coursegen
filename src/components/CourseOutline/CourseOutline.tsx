@@ -1,20 +1,17 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import { Button, IconButton, useToast } from "@chakra-ui/react";
 import { FiShare } from "react-icons/fi";
-import { RefObject, useContext, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { CourseOutlineContext } from "../../context/CourseOutlineContext";
-import CourseSections from "./CourseSections";
+import CourseItems from "./CourseItems";
+import { useCourseContext } from "../../context/CourseContext";
 
 const CourseOutline = () => {
   const {
-    outline: {
-      course: { title, dates, description, courseId },
-      sections,
-    },
+    course: { id: courseId, title, dates, description, items },
     isSearching: isLoading,
     copyCourseLink,
-  } = useContext(CourseOutlineContext);
+  } = useCourseContext();
   const courseContainerRef = useRef<HTMLDivElement>(null);
   const courseTitleRef = useRef<HTMLDivElement>(null);
 
@@ -81,7 +78,7 @@ const CourseOutline = () => {
             <Text m="1rem 0" fontSize="1xl">
               {description}
             </Text>
-            <CourseSections sections={sections}></CourseSections>
+            <CourseItems items={items}></CourseItems>
           </Box>
         )
       )}

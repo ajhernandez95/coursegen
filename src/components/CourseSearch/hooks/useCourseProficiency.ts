@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { defaultProficiency } from "../../../constants/course";
-import { CourseOutlineContext } from "../../../context/CourseOutlineContext";
+import { useCourseContext } from "../../../context/CourseContext";
 
 interface HandleProficiencyParams {
   proficiency: string;
@@ -14,11 +14,12 @@ const defaultProfiencies = {
 };
 
 const useCourseProficiency = () => {
-  const { setProficiency } = useContext(CourseOutlineContext);
-  const [profiencies, setProfiencies] =
-    useState<{ beginner: string; intermediate: string; expert: string }>(
-      defaultProfiencies
-    );
+  const { setProficiency } = useCourseContext();
+  const [profiencies, setProfiencies] = useState<{
+    beginner: string;
+    intermediate: string;
+    expert: string;
+  }>(defaultProfiencies);
 
   useEffect(() => {
     setProfiencies({ ...defaultProfiencies, [defaultProficiency]: "solid" });

@@ -1,5 +1,4 @@
-import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Text } from "@chakra-ui/layout";
+import { Text } from "@chakra-ui/layout";
 import {
   Card,
   CardBody,
@@ -8,21 +7,17 @@ import {
   SimpleGrid,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { CourseSection as Section } from "./types";
+import { CourseItem } from "../../types/course";
 
-interface CourseSectionProps {
-  sections: Section[] | undefined;
-}
-
-const CourseSections = ({ sections }: CourseSectionProps) => {
+const CourseItems = ({ items }: { items: CourseItem[] }) => {
   const templateColumns = useBreakpointValue({
     base: "repeat(auto-fill, minmax(200px, 1fr))",
     sm: "repeat(auto-fill, minmax(300px, 1fr))",
   });
 
-  return Number(sections?.length) > 0 ? (
+  return Number(items?.length) > 0 ? (
     <SimpleGrid spacing={4} templateColumns={templateColumns}>
-      {sections?.map(({ id, title, dates, description }, i) => {
+      {items?.map(({ title, dates, description }, i) => {
         return (
           <Card variant="outline" key={i}>
             <CardHeader>
@@ -40,4 +35,4 @@ const CourseSections = ({ sections }: CourseSectionProps) => {
   ) : null;
 };
 
-export default CourseSections;
+export default CourseItems;

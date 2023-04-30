@@ -1,10 +1,9 @@
 import { Box } from "@chakra-ui/layout";
-import { useCourseContentContext } from "../../context/CourseContentContext";
+import { useCourseContext } from "../../context/CourseContext";
 import {
   Accordion,
   AccordionItem,
   AccordionButton,
-  AccordionPanel,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -17,20 +16,17 @@ import {
 } from "@chakra-ui/react";
 import { CiViewList } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
-import getContrastingTextColor from "../../util/getContrastingTextColors";
-import useColorSchemes from "../../hooks/useColorSchemes";
 import useCourseContent from "./hooks/useCourseContent";
 
 const CourseContentSidebar = () => {
-  const { course, activeSection } = useCourseContentContext();
+  const { course, activeSection } = useCourseContext();
   const { handleSetActiveLesson } = useCourseContent();
-  const { sections } = course || {};
-  const { colors: buttonColors } = useColorSchemes(sections);
+  const { items } = course || {};
   const { isOpen, onOpen, onClose } = useDisclosure();
   const drawerBg = useColorModeValue("white", "#1A1C1E");
   const floatingBtnBg = useColorModeValue("#EDF2F7", "#2C2D2E");
   const activeModuleBg = useColorModeValue("#EDF2F7", "#2C2D2E");
-  const index = sections?.findIndex((obj: any) => {
+  const index = items?.findIndex((obj: any) => {
     return obj?.id === activeSection?.id;
   });
 
@@ -79,14 +75,14 @@ const CourseContentSidebar = () => {
             </Box>
           </DrawerHeader>
           <DrawerBody>
-            {sections && (
+            {items && (
               <Accordion defaultIndex={index}>
-                {sections?.map((section: any, i: number) => {
+                {items?.map((item: any, i: number) => {
                   return (
                     <AccordionItem key={i}>
                       <h2>
                         <AccordionButton
-                          onClick={() => handleSetActiveLesson(section)}
+                          onClick={() => handleSetActiveLesson(item)}
                           _expanded={{
                             bg: activeModuleBg,
                           }}
@@ -95,7 +91,7 @@ const CourseContentSidebar = () => {
                           }}
                         >
                           <Box as="span" flex="1" textAlign="left">
-                            {section.title}
+                            {item.title}
                           </Box>
                         </AccordionButton>
                       </h2>

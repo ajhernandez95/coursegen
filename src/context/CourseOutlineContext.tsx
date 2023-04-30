@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { createContext, useState, ReactNode, useEffect } from "react";
-import { Outline } from "../components/CourseOutline/types";
+import { Course } from "../components/CourseOutline/types";
 import {
   defaultCourseOutline,
   defaultProficiency,
@@ -9,18 +9,8 @@ import {
 import { useToast } from "@chakra-ui/react";
 
 interface ICourseOutlineContext {
-  outline: Outline;
-  setOutline: Dispatch<
-    SetStateAction<{
-      course: {
-        title: string;
-        dates: string;
-        description: string;
-        courseId: string;
-      };
-      sections: never[];
-    }>
-  >;
+  outline: Course;
+  setOutline: Dispatch<SetStateAction<Course>>;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
   sectionCount: string;

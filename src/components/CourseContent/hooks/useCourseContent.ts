@@ -1,7 +1,7 @@
 import { supabase } from "../../../util/supabase";
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useCourseContentContext } from "../../../context/CourseContentContext";
+import { useCourseContext } from "../../../context/CourseContext";
 import { v4 as uuidv4 } from "uuid";
 
 const useCourseContent = () => {
@@ -12,7 +12,7 @@ const useCourseContent = () => {
     setActiveSection,
     setIsFetchingCourse,
     setIsFetchingLesson,
-  } = useCourseContentContext();
+  } = useCourseContext();
 
   const handleGetLesson = useCallback(
     async ({ courseId, sectionId }: { courseId: any; sectionId: any }) => {
@@ -44,7 +44,7 @@ const useCourseContent = () => {
       .select(
         `
       *,
-      sections: section (
+      items: course_item (
         *
       )
       `
@@ -52,6 +52,7 @@ const useCourseContent = () => {
       .eq("id", courseId)
       .then(async ({ data }) => {
         if (data && data[0]) {
+          console.log(data);
           setCourse(data[0]);
           const sectionIndex = 0;
 

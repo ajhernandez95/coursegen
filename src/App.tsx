@@ -5,8 +5,7 @@ import Home from "./components/Home";
 import LoginSignUp from "./components/LogInSignUp";
 import CourseContent from "./components/CourseContent";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { CourseOutlineContextProvider } from "./context/CourseOutlineContext";
-import { CourseContentContextProvider } from "./context/CourseContentContext";
+import { CourseContextProvider } from "./context/CourseContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import customTheme from "./util/customChakraTheme";
 
@@ -52,16 +51,14 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CourseOutlineContextProvider>
-        <CourseContentContextProvider>
-          <Box height="100vh">
-            <ChakraProvider theme={customTheme}>
-              <NavBar />
-              <RouterProvider router={router} />
-            </ChakraProvider>
-          </Box>
-        </CourseContentContextProvider>
-      </CourseOutlineContextProvider>
+      <CourseContextProvider>
+        <Box height="100vh">
+          <ChakraProvider theme={customTheme}>
+            <NavBar />
+            <RouterProvider router={router} />
+          </ChakraProvider>
+        </Box>
+      </CourseContextProvider>
     </QueryClientProvider>
   );
 };
