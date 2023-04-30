@@ -21,8 +21,8 @@ interface ICourseOutlineContext {
       sections: never[];
     }>
   >;
-  subjectSearch: string;
-  setSubjectSearch: Dispatch<SetStateAction<string>>;
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
   sectionCount: string;
   setSectionCount: Dispatch<SetStateAction<string>>;
   proficiency: string;
@@ -35,8 +35,8 @@ interface ICourseOutlineContext {
 export const CourseOutlineContext = createContext<ICourseOutlineContext>({
   outline: defaultCourseOutline,
   setOutline: () => undefined,
-  subjectSearch: "",
-  setSubjectSearch: () => undefined,
+  search: "",
+  setSearch: () => undefined,
   proficiency: defaultProficiency,
   setProficiency: () => undefined,
   sectionCount: defaultSectionCount,
@@ -52,7 +52,7 @@ export const CourseOutlineContextProvider = ({
   children: ReactNode;
 }) => {
   const [outline, setOutline] = useState(defaultCourseOutline);
-  const [subjectSearch, setSubjectSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [proficiency, setProficiency] = useState(defaultProficiency);
   const [sectionCount, setSectionCount] = useState<string>(defaultSectionCount);
   const [isSearching, setIsSearching] = useState(false);
@@ -76,8 +76,8 @@ export const CourseOutlineContextProvider = ({
       value={{
         outline,
         setOutline,
-        subjectSearch,
-        setSubjectSearch,
+        search,
+        setSearch,
         proficiency,
         setProficiency,
         sectionCount,

@@ -10,7 +10,7 @@ import CourseSectionCount from "./CourseSectionCount";
 
 const CourseSearch = () => {
   const { handleSearch } = useCourseSearch();
-  const { setOutline, setSubjectSearch, setIsSearching } =
+  const { setOutline, setSearch, setIsSearching } =
     useContext(CourseOutlineContext);
   const {
     register,
@@ -18,9 +18,9 @@ const CourseSearch = () => {
     formState: { errors },
     watch,
   } = useForm();
-  const subjectSearch = watch("subjectSearch");
+  const search = watch("search");
   const { data, isLoading, isFetching, refetch } = useQuery(
-    ["courseSearch", subjectSearch],
+    ["courseSearch", search],
     () => handleSearch(),
     {
       enabled: false,
@@ -39,8 +39,8 @@ const CourseSearch = () => {
   };
 
   useEffect(() => {
-    setSubjectSearch(subjectSearch);
-  }, [subjectSearch]);
+    setSearch(search);
+  }, [search]);
 
   return (
     <Box mb={5}>
@@ -66,7 +66,7 @@ const CourseSearch = () => {
             maxW={900}
             mt={4}
             placeholder="e.g., Introduction to Programming, History of Human Civilization"
-            {...register("subjectSearch")}
+            {...register("search")}
           ></Input>
           <Button size="lg" mt={5} type="submit">
             Search
