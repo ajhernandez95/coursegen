@@ -21,17 +21,22 @@ import remarkGfm from "remark-gfm";
 
 const CourseContentSectionDetails = ({ content }: { content: any }) => {
   const headerBg = useColorModeValue("#EDF2F7", "#2C2D2E");
-
+  if (typeof content === "string") {
+    content = JSON.parse(content);
+  }
+  console.log(content);
   return (
     <Box mb={8}>
       <Box bg={headerBg} p={5} borderRadius="5px" display="inline-block">
-        <Heading>{content.title}</Heading>
+        <Heading size="xl">{content.title}</Heading>
       </Box>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
           // @ts-ignore
-          h1: ({ node, ...props }) => <Heading my={3} {...props} as="h1" />,
+          h1: ({ node, ...props }) => (
+            <Heading my={3} {...props} size="lg" as="h2" />
+          ),
           h2: ({ node, ...props }) => (
             <Heading my={3} {...props} as="h2" size="lg" />
           ),

@@ -5,7 +5,7 @@ const useGetCourseQuery = (courseId: string | undefined) => {
   const { handleGetCourse } = useCourseContent();
   return useQuery({
     queryKey: ["course", courseId],
-    queryFn: handleGetCourse,
+    queryFn: () => handleGetCourse({ setFirstLesson: true }),
     enabled: courseId ? true : false,
     retry: false,
   });

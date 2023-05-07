@@ -12,7 +12,11 @@ import {
 import { ICourseItem, CourseItemType } from "../../types/course";
 import useColorModePresets from "../../hooks/useColorModePresets";
 
-const CourseItem = ({ item }: { item: ICourseItem }) => {
+const CourseItem = ({
+  item,
+}: {
+  item: ICourseItem<CourseItemType.LESSON | CourseItemType.MODULE>;
+}) => {
   const { title, dates, description, type, items } = item;
   const { activeBg } = useColorModePresets();
   return (

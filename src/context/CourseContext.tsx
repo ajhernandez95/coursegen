@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { createContext, useState, ReactNode } from "react";
-import { ICourse } from "../types/course";
+import { CourseItemType, ICourse } from "../types/course";
 import {
   defaultCourse,
   defaultProficiency,
@@ -9,8 +9,10 @@ import {
 import { useToast } from "@chakra-ui/react";
 
 interface ICourseContext {
-  course: ICourse;
-  setCourse: Dispatch<SetStateAction<ICourse>>;
+  course: ICourse<CourseItemType.LESSON | CourseItemType.MODULE>;
+  setCourse: Dispatch<
+    SetStateAction<ICourse<CourseItemType.LESSON | CourseItemType.MODULE>>
+  >;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
   sectionCount: string;
@@ -22,10 +24,14 @@ interface ICourseContext {
   copyCourseLink: () => void;
   activeSection: any;
   setActiveSection: Dispatch<SetStateAction<any>>;
+  activeTopics: any;
+  setActiveTopics: Dispatch<SetStateAction<any>>;
   isFetchingCourse: boolean;
   setIsFetchingCourse: Dispatch<SetStateAction<boolean>>;
   isFetchingLesson: boolean;
   setIsFetchingLesson: Dispatch<SetStateAction<boolean>>;
+  isFetchingTopics: boolean;
+  setIsFetchingTopics: Dispatch<SetStateAction<boolean>>;
   clearCourseContentState: () => void;
 }
 
@@ -43,10 +49,14 @@ export const CourseContext = createContext<ICourseContext>({
   copyCourseLink: () => undefined,
   activeSection: undefined,
   setActiveSection: () => undefined,
+  activeTopics: undefined,
+  setActiveTopics: () => undefined,
   isFetchingCourse: false,
   setIsFetchingCourse: () => undefined,
   isFetchingLesson: false,
   setIsFetchingLesson: () => undefined,
+  isFetchingTopics: false,
+  setIsFetchingTopics: () => undefined,
   clearCourseContentState: () => undefined,
 });
 
@@ -61,8 +71,10 @@ export const CourseContextProvider = ({
   const [sectionCount, setSectionCount] = useState<string>(defaultSectionCount);
   const [isSearching, setIsSearching] = useState(false);
   const [activeSection, setActiveSection] = useState<any>();
+  const [activeTopics, setActiveTopics] = useState<any>();
   const [isFetchingCourse, setIsFetchingCourse] = useState(false);
   const [isFetchingLesson, setIsFetchingLesson] = useState(false);
+  const [isFetchingTopics, setIsFetchingTopics] = useState(false);
   const toast = useToast();
 
   const clearCourseContentState = () => {
@@ -99,10 +111,14 @@ export const CourseContextProvider = ({
         copyCourseLink,
         activeSection,
         setActiveSection,
+        activeTopics,
+        setActiveTopics,
         isFetchingCourse,
         setIsFetchingCourse,
         isFetchingLesson,
         setIsFetchingLesson,
+        isFetchingTopics,
+        setIsFetchingTopics,
         clearCourseContentState,
       }}
     >

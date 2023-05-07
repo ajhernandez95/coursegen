@@ -5,6 +5,7 @@ export const newCourse = {
 
 export const lessonContent = {
   v1: "lesson_content",
+  v2: "lesson_content_v2",
 };
 
 export const getCourse = {

@@ -1,6 +1,8 @@
-import { ICourse } from "../types/course";
+import { CourseItemType, ICourse } from "../types/course";
 
-export const defaultCourse: ICourse = {
+export const defaultCourse: ICourse<
+  CourseItemType.LESSON | CourseItemType.MODULE
+> = {
   id: "",
   title: "",
   description: "",

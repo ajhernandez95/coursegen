@@ -1,16 +1,21 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useCourseContext } from "../../context/CourseContext";
 import CourseContentSectionDetails from "./CourseContentSectionDetails";
-
+// TODO: Rename to CourseContentLesson
 const CourseContentSection = () => {
-  const { activeSection, isFetchingCourse, isFetchingLesson } =
-    useCourseContext();
+  const {
+    activeTopics,
+    activeSection,
+    isFetchingCourse,
+    isFetchingLesson,
+    isFetchingTopics,
+  } = useCourseContext();
   let { content } = activeSection || {};
 
   if (typeof content === "string") {
     content = JSON.parse(content);
   }
-
+  // TODO: Extract this to a component
   const loadingGif = (
     <Box
       position="absolute"
@@ -26,16 +31,20 @@ const CourseContentSection = () => {
       <Text mt={5}>Generating Lesson Content</Text>
     </Box>
   );
-
-  return activeSection && activeSection.content ? (
+  console.log(
+    isFetchingCourse,
+    isFetchingLesson,
+    isFetchingTopics,
+    activeSection,
+    activeTopics
+  );
+  return activeTopics?.length ? (
     <Box pt={2} pl={["20px", "30px"]} pr={["20px", "100px"]} mb={8}>
-      {isFetchingCourse}
-      {isFetchingLesson}
       <Box>
         {isFetchingCourse || isFetchingLesson
           ? loadingGif
-          : content.map((content: any, i: number) => (
-              <CourseContentSectionDetails content={content} key={i} />
+          : activeTopics.map((topic: any, i: number) => (
+              <CourseContentSectionDetails content={topic} key={i} />
             ))}
       </Box>
     </Box>
