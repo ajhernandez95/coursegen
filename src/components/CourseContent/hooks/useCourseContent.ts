@@ -1,8 +1,11 @@
+import { IFetchLessonContent } from "./../interfaces/courseContent";
 import { supabase } from "../../../util/supabase";
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCourseContext } from "../../../context/CourseContext";
 import { v4 as uuidv4 } from "uuid";
+import { ICourse, ICourseItem } from "../../../types/course";
+import { getCourse, lessonContent } from "../../../services/edgeFunctions";
 
 const useCourseContent = () => {
   const { courseId } = useParams();
@@ -15,16 +18,14 @@ const useCourseContent = () => {
   } = useCourseContext();
 
   const handleGetLesson = useCallback(
-    async ({ courseId, sectionId }: { courseId: any; sectionId: any }) => {
+    async ({ courseId, lessonId }: { courseId: any; lessonId: any }) => {
       return await supabase.functions
-        .invoke("lesson_content", {
+        .invoke(lessonContent.v1, {
           body: {
+            lesson_id: lessonId,
             course_id: courseId,
-            section_id: sectionId,
-            proficiency: "Beginner",
-            max_tokens: 2500,
             session_key: uuidv4(),
-          },
+          } as IFetchLessonContent,
         })
         .then(({ data: lessonData }) => {
           setIsFetchingLesson(false);
@@ -35,71 +36,40 @@ const useCourseContent = () => {
   );
 
   const handleGetCourse = useCallback(async () => {
-    setIsFetchingCourse(true);
-    setIsFetchingLesson(true);
-    clearCourseContentState();
+    try {
+      setIsFetchingCourse(true);
+      clearCourseContentState();
 
-    await supabase
-      .from("course")
-      .select(
-        `
-      *,
-      items: course_item (
-        *
-      )
-      `
-      )
-      .eq("id", courseId)
-      .then(async ({ data }) => {
-        if (data && data[0]) {
-          console.log(data);
-          setCourse(data[0]);
-          const sectionIndex = 0;
-
-          if (data[0].sections && data[0].sections[sectionIndex]) {
-            setActiveSection(data[0].sections[sectionIndex]);
-
-            if (!data[0].sections[sectionIndex].content) {
-              handleGetLesson({
-                courseId: data[0].id,
-                sectionId: data[0].sections[sectionIndex].id,
-              }).then((res) => {
-                if (res) {
-                  setCourse((prev: any) => {
-                    const newList = [...prev.sections];
-                    newList.splice(sectionIndex, 1, res);
-                    return {
-                      ...prev,
-                      sections: newList,
-                    };
-                  });
-                  setActiveSection(res);
-                }
-              });
-            }
-          }
-          setIsFetchingCourse(false);
-          setIsFetchingLesson(false);
-        }
+      const { data, error } = await supabase.functions.invoke(getCourse.v1, {
+        body: { course_id: courseId },
       });
-  }, [setIsFetchingCourse, setCourse, setActiveSection, handleGetLesson]);
+
+      if (error) {
+        return Promise.reject(error);
+      }
+
+      setCourse(data);
+    } finally {
+      setIsFetchingCourse(false);
+    }
+  }, [courseId]);
 
   const handleSetActiveLesson = useCallback(
-    async (lesson: any) => {
+    async (courseId: string, lesson: ICourseItem) => {
       if (lesson) {
         setActiveSection(lesson);
-        if (!lesson.content) {
+        if (!lesson.topics?.length) {
           setIsFetchingLesson(true);
           const res = await handleGetLesson({
-            courseId: lesson.course_id,
-            sectionId: lesson.id,
+            courseId: courseId,
+            lessonId: lesson.id,
           });
 
           if (res) {
-            setCourse((prev: any) => {
-              const newList = [...prev.sections];
+            setCourse((prev: ICourse) => {
+              const newList = [...prev.items];
               newList.splice(
-                prev.sections.findIndex(
+                prev.items.findIndex(
                   (section: any) => section.id === lesson.id
                 ),
                 1,
@@ -113,6 +83,7 @@ const useCourseContent = () => {
             lesson = res;
             setActiveSection(lesson);
           }
+          setIsFetchingLesson(true);
         }
       }
     },

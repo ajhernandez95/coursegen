@@ -1,19 +1,12 @@
-import { Box, VStack } from "@chakra-ui/layout";
-import useCourseContent from "./hooks/useCourseContent";
+import { Box } from "@chakra-ui/layout";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import CourseContentSidebar from "./CourseContentSidebar";
 import CourseContentSection from "./CourseContentSection";
+import useGetCourseQuery from "./hooks/useGetCourseQuery";
 
 const CourseContent = () => {
-  const { handleGetCourse } = useCourseContent();
   const { courseId } = useParams();
-
-  useEffect(() => {
-    if (courseId) {
-      handleGetCourse();
-    }
-  }, []);
+  useGetCourseQuery(courseId);
 
   return (
     <Box display="flex" width="100%">

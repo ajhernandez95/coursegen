@@ -11,21 +11,19 @@ import {
   useDisclosure,
   IconButton,
   Show,
-  useColorModeValue,
   Text,
 } from "@chakra-ui/react";
 import { CiViewList } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 import useCourseContent from "./hooks/useCourseContent";
+import useColorModePresets from "../../hooks/useColorModePresets";
 
 const CourseContentSidebar = () => {
   const { course, activeSection } = useCourseContext();
   const { handleSetActiveLesson } = useCourseContent();
   const { items } = course || {};
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const drawerBg = useColorModeValue("white", "#1A1C1E");
-  const floatingBtnBg = useColorModeValue("#EDF2F7", "#2C2D2E");
-  const activeModuleBg = useColorModeValue("#EDF2F7", "#2C2D2E");
+  const { drawerBg, floatingBtnBg, activeBg } = useColorModePresets();
   const index = items?.findIndex((obj: any) => {
     return obj?.id === activeSection?.id;
   });
@@ -82,12 +80,14 @@ const CourseContentSidebar = () => {
                     <AccordionItem key={i}>
                       <h2>
                         <AccordionButton
-                          onClick={() => handleSetActiveLesson(item)}
+                          onClick={() => {
+                            // handleSetActiveLesson(item)
+                          }}
                           _expanded={{
-                            bg: activeModuleBg,
+                            bg: activeBg,
                           }}
                           _hover={{
-                            bg: activeModuleBg,
+                            bg: activeBg,
                           }}
                         >
                           <Box as="span" flex="1" textAlign="left">

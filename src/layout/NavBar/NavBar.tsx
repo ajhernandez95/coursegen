@@ -5,6 +5,8 @@ import SignOutButton from "../../components/SignOutButton";
 import SignInButton from "../../components/SignInButton";
 import { useSupabase } from "../../context/SupabaseContext";
 import { Flex, Show, TextProps, useColorModeValue } from "@chakra-ui/react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import SideNavBar from "./SideNavBar";
 
 const NavBar = () => {
   const { textStyles } = useStyles();
@@ -16,17 +18,20 @@ const NavBar = () => {
     <Box bg={bg} as="nav" top="0" w="100%">
       {/** @ts-ignore */}
       <Flex alignItems="center" justifyContent="space-between" py={4} px={6}>
-        <a href="/">
-          <Box display="flex" alignItems="center">
-            <Box w={30} h={30}>
-              <img src={"/" + logo} alt="logo" />
+        <Flex alignItems="center">
+          <SideNavBar />
+          <a href="/">
+            <Box display="flex" alignItems="center">
+              <Box w={30} h={30}>
+                <img src={"/" + logo} alt="logo" />
+              </Box>
+              {/** @ts-ignore */}
+              <Show above="md">
+                <Text {...textStyles}>CourseGen</Text>
+              </Show>
             </Box>
-            {/** @ts-ignore */}
-            <Show above="sm">
-              <Text {...(textStyles as TextProps)}>CourseGen</Text>
-            </Show>
-          </Box>
-        </a>
+          </a>
+        </Flex>
         <Box>
           <ColorModeSwitcher mr={[0, 2]} />
           <Show above="sm">

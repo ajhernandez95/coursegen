@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { createContext, useState, ReactNode } from "react";
-import { Course } from "../types/course";
+import { ICourse } from "../types/course";
 import {
   defaultCourse,
   defaultProficiency,
@@ -9,8 +9,8 @@ import {
 import { useToast } from "@chakra-ui/react";
 
 interface ICourseContext {
-  course: Course;
-  setCourse: Dispatch<SetStateAction<Course>>;
+  course: ICourse;
+  setCourse: Dispatch<SetStateAction<ICourse>>;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
   sectionCount: string;

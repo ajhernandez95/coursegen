@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Input, Button, Heading } from "@chakra-ui/react";
-import useCourseSearch from "./hooks/useCourseSearch";
-import { useQuery } from "react-query";
-import handleSupabaseResponse from "../../util/handleSupabaseResponse";
 import { useCourseContext } from "../../context/CourseContext";
+import useCourseSearchQuery from "./hooks/useCourseSearchQuery";
 
 const CourseSearch = () => {
-  const { handleSearch } = useCourseSearch();
-  const { setCourse, setSearch, setIsSearching } = useCourseContext();
+  const { setSearch, setIsSearching } = useCourseContext();
   const {
     register,
     handleSubmit,
@@ -16,31 +13,11 @@ const CourseSearch = () => {
     watch,
   } = useForm();
   const search = watch("search");
-  const { data, isLoading, isFetching, refetch } = useQuery(
-    ["courseSearch", search],
-    () => handleSearch(),
-    {
-      enabled: false,
-      onSuccess: (response) => {
-        console.log(response);
-        const parsedRes = handleSupabaseResponse(response);
-        console.log(parsedRes);
-        if (parsedRes.isSuccess) {
-          setCourse(parsedRes);
-        }
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-      onSettled: () => {
-        setIsSearching(false);
-      },
-    }
-  );
+  const { isFetching, refetch } = useCourseSearchQuery(search);
 
   const onSubmit = () => {
     if (!isFetching) {
-      refetch();
+      refetch({ throwOnError: true });
       setIsSearching(true);
     }
   };
@@ -50,14 +27,10 @@ const CourseSearch = () => {
   }, [search]);
 
   return (
-    <Box mb={5}>
+    <Box mt={100} mb={5}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* <Box display="flex" justifyContent="space-between">
-          <CourseProficiency />
-          <CourseSectionCount />
-        </Box> */}
         {/* @ts-ignore */}
-        <Heading mb={6} size={["lg", "3xl", "4xl"]} textAlign="center">
+        <Heading mb={6} size={["2xl", "3xl", "4xl"]} textAlign="center">
           I'm CourseGen, an AI powered course generator.
         </Heading>
 

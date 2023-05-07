@@ -1,29 +1,34 @@
-import { CourseOutlineContext } from "./../../../context/CourseOutlineContext";
-import { useContext } from "react";
 import { supabase } from "../../../util/supabase";
-import { newCourse } from "../../../services/newCourse";
+import { newCourse } from "../../../services/edgeFunctions";
 import { useCourseContext } from "../../../context/CourseContext";
+import { useCallback, useState } from "react";
+import { gpt } from "../../../constants/modelVersions";
 
 const useCourseSearch = () => {
-  const { search } = useCourseContext();
+  const { search, setIsSearching, setCourse } = useCourseContext();
 
-  const handleSearch = async () => {
-    const { data, error } = await supabase.functions.invoke(newCourse.v2, {
-      body: {
-        search_text: search,
-        max_tokens: 3000,
-      },
-    });
+  const handleSearch = useCallback(async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke(newCourse.v2, {
+        body: {
+          search_text: search,
+          max_tokens: 3000,
+          gpt_model: gpt.v3,
+        },
+      });
 
-    return {
-      data,
-      error,
-    };
-  };
+      if (error) {
+        return Promise.reject(error);
+      }
 
-  return {
-    handleSearch,
-  };
+      setCourse(data);
+      return data;
+    } finally {
+      setIsSearching(false);
+    }
+  }, [search]);
+
+  return handleSearch;
 };
 
 export default useCourseSearch;

@@ -5,11 +5,9 @@ import {
   ReactNode,
   useEffect,
   useContext,
-  useCallback,
 } from "react";
 import { supabase } from "../util/supabase";
 import { defaultSupabaseContext } from "../constants/supabase";
-import { useNavigate } from "react-router-dom";
 
 interface ISupabaseContext {
   isLoading: boolean;

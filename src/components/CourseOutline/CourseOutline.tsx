@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
-import { Button, IconButton, useToast } from "@chakra-ui/react";
+import { Button, Collapse, IconButton } from "@chakra-ui/react";
 import { FiShare } from "react-icons/fi";
 import { RefObject, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
@@ -7,11 +7,8 @@ import CourseItems from "./CourseItems";
 import { useCourseContext } from "../../context/CourseContext";
 
 const CourseOutline = () => {
-  const {
-    course: { id: courseId, title, dates, description, items },
-    isSearching: isLoading,
-    copyCourseLink,
-  } = useCourseContext();
+  const { course, isSearching: isLoading, copyCourseLink } = useCourseContext();
+  const { id: courseId, title, dates, description, items } = course || {};
   const courseContainerRef = useRef<HTMLDivElement>(null);
   const courseTitleRef = useRef<HTMLDivElement>(null);
 
@@ -35,20 +32,22 @@ const CourseOutline = () => {
     <Box ref={courseContainerRef} pb={50}>
       {isLoading ? (
         <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
         >
           <img
             src="/dancing-owl.gif"
             style={{ borderRadius: "50%", width: "200px", height: "200px" }}
           />
-          <Text mt={5}>Generating Course</Text>
+          <Text mt={5} textAlign="center">
+            Generating Course
+          </Text>
         </Box>
       ) : (
         courseId && (
-          <Box textAlign={["center", "left"]}>
+          <>
             <Box
               display="flex"
               justifyContent={["center", "space-between"]}
@@ -79,7 +78,7 @@ const CourseOutline = () => {
               {description}
             </Text>
             <CourseItems items={items}></CourseItems>
-          </Box>
+          </>
         )
       )}
     </Box>
