@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SideNavBar from "./SideNavBar";
+import { AccountAvatar } from "../../components/AccountAvatar";
 
 const NavBar = () => {
   const { textStyles } = useStyles();
@@ -38,13 +39,12 @@ const NavBar = () => {
             </Box>
           </a>
         </Flex>
-        <Box>
+        <Flex alignItems="center">
           <ColorModeSwitcher mr={[0, 2]} />
-          <Avatar size={["sm", "md"]} src="https://bit.ly/broken-link" />
           <Show above="sm">
-            {isLoggedIn ? <SignOutButton /> : <SignInButton />}
+            {isLoggedIn ? <AccountAvatar /> : <SignInButton />}
           </Show>
-        </Box>
+        </Flex>
       </Flex>
     </Box>
   );
