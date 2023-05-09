@@ -13,17 +13,36 @@ const useCourseContent = () => {
   const {
     clearCourseContentState,
     setCourse,
-    setActiveSection,
+    setActiveLesson,
     setActiveTopics,
     setIsFetchingCourse,
     setIsFetchingLesson,
     setIsFetchingTopics,
   } = useCourseContext();
 
+  const getTopics = async (courseId: string, lessonId: string) => {
+    let topics;
+    const { data } = await supabase
+      .from("topic")
+      .select("*")
+      .eq("lesson_id", lessonId)
+      .order("order_index", { ascending: true });
+
+    topics = data;
+    if (!topics?.length) {
+      topics = await generateTopics({
+        courseId,
+        lessonId,
+      });
+    }
+
+    return topics;
+  };
+
   const handleGetLesson = useCallback(
     async ({ courseId, lessonId }: { courseId: any; lessonId: any }) => {
       return await supabase.functions
-        .invoke(lessonContent.v1, {
+        .invoke(lessonContent.v2, {
           body: {
             lesson_id: lessonId,
             course_id: courseId,
@@ -56,23 +75,9 @@ const useCourseContent = () => {
         setCourse(data);
         if (setFirstLesson) {
           const firstLesson = findFirstLesson({ items: data.items });
-          const { data: topics } = await supabase
-            .from("topic")
-            .select("*")
-            .eq("lesson_id", firstLesson.id)
-            .order("order_index", { ascending: true });
-
-          if (!topics?.length) {
-            const topics = await generateTopics({
-              courseId: courseId,
-              lessonId: firstLesson.id,
-            });
-            setActiveTopics(topics);
-          } else {
-            setActiveTopics(topics);
-          }
-
-          setActiveSection(firstLesson);
+          const topics = await getTopics(courseId, firstLesson.id);
+          setActiveTopics(topics);
+          setActiveLesson(firstLesson);
         }
 
         return data;
@@ -98,7 +103,6 @@ const useCourseContent = () => {
           }
         );
 
-        console.log(data, error);
         if (error) {
           return Promise.reject(error);
         }
@@ -115,41 +119,16 @@ const useCourseContent = () => {
   const handleSetActiveLesson = useCallback(
     async (courseId: string, lesson: ICourseItem<CourseItemType.LESSON>) => {
       if (lesson) {
-        setActiveSection(lesson);
+        setActiveLesson(lesson);
         if (!lesson.topics?.length) {
           setIsFetchingLesson(true);
-          const res = await handleGetLesson({
-            courseId: courseId,
-            lessonId: lesson.id,
-          });
-
-          if (res) {
-            setCourse(
-              (
-                prev: ICourse<CourseItemType.LESSON | CourseItemType.MODULE>
-              ) => {
-                const newList = [...prev.items];
-                newList.splice(
-                  prev.items.findIndex(
-                    (section: any) => section.id === lesson.id
-                  ),
-                  1,
-                  res
-                );
-                return {
-                  ...prev,
-                  sections: newList,
-                };
-              }
-            );
-            lesson = res;
-            setActiveSection(lesson);
-          }
-          setIsFetchingLesson(true);
+          const topics = await getTopics(courseId, lesson.id);
+          setActiveTopics(topics);
+          setIsFetchingLesson(false);
         }
       }
     },
-    [setActiveSection, handleGetLesson, setCourse]
+    [setActiveLesson, handleGetLesson, setCourse]
   );
 
   return {

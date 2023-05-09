@@ -24,7 +24,7 @@ const CourseContentSectionDetails = ({ content }: { content: any }) => {
   if (typeof content === "string") {
     content = JSON.parse(content);
   }
-  console.log(content);
+
   return (
     <Box mb={8}>
       <Box bg={headerBg} p={5} borderRadius="5px" display="inline-block">

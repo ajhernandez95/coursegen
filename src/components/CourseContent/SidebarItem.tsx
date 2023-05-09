@@ -11,8 +11,10 @@ import {
 } from "@chakra-ui/react";
 import { ICourseItem, CourseItemType } from "../../types/course";
 import useColorModePresets from "../../hooks/useColorModePresets";
+import { useCourseContext } from "../../context/CourseContext";
+import useCourseContent from "./hooks/useCourseContent";
 
-const CourseItem = ({
+const SidebarItem = ({
   item,
   showDescription = true,
 }: {
@@ -21,15 +23,14 @@ const CourseItem = ({
 }) => {
   const { title, dates, description, type, items } = item;
   const { activeBg } = useColorModePresets();
+  const { course, activeLesson } = useCourseContext();
+  const { handleSetActiveLesson } = useCourseContent();
   return (
     <Accordion defaultIndex={0} allowToggle>
       <AccordionItem>
         <h2>
           {type === CourseItemType.MODULE ? (
             <AccordionButton
-              _expanded={{
-                bg: activeBg,
-              }}
               _hover={{
                 bg: activeBg,
               }}
@@ -41,7 +42,15 @@ const CourseItem = ({
             </AccordionButton>
           ) : (
             <UnorderedList>
-              <ListItem cursor="pointer">
+              <ListItem
+                _hover={{
+                  bg: activeBg,
+                }}
+                bg={activeLesson?.id === item.id ? activeBg : ""}
+                p="5px"
+                cursor="pointer"
+                onClick={() => handleSetActiveLesson(course.id, item)}
+              >
                 <Text mb={1}>
                   {title} {dates && "(" + dates + ")"}
                 </Text>
@@ -53,7 +62,7 @@ const CourseItem = ({
           <AccordionPanel>
             {showDescription && <Text mb={2}>{description}</Text>}
             {items.map((childItem, i) => {
-              return <CourseItem key={i} item={childItem} />;
+              return <SidebarItem key={i} item={childItem} />;
             })}
           </AccordionPanel>
         )}
@@ -62,4 +71,4 @@ const CourseItem = ({
   );
 };
 
-export default CourseItem;
+export default SidebarItem;

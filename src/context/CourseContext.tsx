@@ -22,8 +22,8 @@ interface ICourseContext {
   isSearching: boolean;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
   copyCourseLink: () => void;
-  activeSection: any;
-  setActiveSection: Dispatch<SetStateAction<any>>;
+  activeLesson: any;
+  setActiveLesson: Dispatch<SetStateAction<any>>;
   activeTopics: any;
   setActiveTopics: Dispatch<SetStateAction<any>>;
   isFetchingCourse: boolean;
@@ -47,8 +47,8 @@ export const CourseContext = createContext<ICourseContext>({
   setIsSearching: () => undefined,
   isSearching: false,
   copyCourseLink: () => undefined,
-  activeSection: undefined,
-  setActiveSection: () => undefined,
+  activeLesson: undefined,
+  setActiveLesson: () => undefined,
   activeTopics: undefined,
   setActiveTopics: () => undefined,
   isFetchingCourse: false,
@@ -70,7 +70,7 @@ export const CourseContextProvider = ({
   const [proficiency, setProficiency] = useState(defaultProficiency);
   const [sectionCount, setSectionCount] = useState<string>(defaultSectionCount);
   const [isSearching, setIsSearching] = useState(false);
-  const [activeSection, setActiveSection] = useState<any>();
+  const [activeLesson, setActiveLesson] = useState<any>();
   const [activeTopics, setActiveTopics] = useState<any>();
   const [isFetchingCourse, setIsFetchingCourse] = useState(false);
   const [isFetchingLesson, setIsFetchingLesson] = useState(false);
@@ -79,7 +79,7 @@ export const CourseContextProvider = ({
 
   const clearCourseContentState = () => {
     setCourse(undefined);
-    setActiveSection(undefined);
+    setActiveLesson(undefined);
   };
 
   const copyCourseLink = () => {
@@ -109,8 +109,8 @@ export const CourseContextProvider = ({
         isSearching,
         setIsSearching,
         copyCourseLink,
-        activeSection,
-        setActiveSection,
+        activeLesson,
+        setActiveLesson,
         activeTopics,
         setActiveTopics,
         isFetchingCourse,

@@ -3,18 +3,8 @@ import { useCourseContext } from "../../context/CourseContext";
 import CourseContentSectionDetails from "./CourseContentSectionDetails";
 // TODO: Rename to CourseContentLesson
 const CourseContentSection = () => {
-  const {
-    activeTopics,
-    activeSection,
-    isFetchingCourse,
-    isFetchingLesson,
-    isFetchingTopics,
-  } = useCourseContext();
-  let { content } = activeSection || {};
-
-  if (typeof content === "string") {
-    content = JSON.parse(content);
-  }
+  const { activeTopics, isFetchingCourse, isFetchingLesson } =
+    useCourseContext();
   // TODO: Extract this to a component
   const loadingGif = (
     <Box
@@ -31,13 +21,7 @@ const CourseContentSection = () => {
       <Text mt={5}>Generating Lesson Content</Text>
     </Box>
   );
-  console.log(
-    isFetchingCourse,
-    isFetchingLesson,
-    isFetchingTopics,
-    activeSection,
-    activeTopics
-  );
+
   return activeTopics?.length ? (
     <Box pt={2} pl={["20px", "30px"]} pr={["20px", "100px"]} mb={8}>
       <Box>

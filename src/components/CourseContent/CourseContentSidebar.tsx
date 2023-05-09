@@ -2,8 +2,6 @@ import { Box } from "@chakra-ui/layout";
 import { useCourseContext } from "../../context/CourseContext";
 import {
   Accordion,
-  AccordionItem,
-  AccordionButton,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -15,17 +13,16 @@ import {
 } from "@chakra-ui/react";
 import { CiViewList } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
-import useCourseContent from "./hooks/useCourseContent";
 import useColorModePresets from "../../hooks/useColorModePresets";
+import SidebarItem from "./SidebarItem";
 
 const CourseContentSidebar = () => {
-  const { course, activeSection } = useCourseContext();
-  const { handleSetActiveLesson } = useCourseContent();
+  const { course, activeLesson } = useCourseContext();
   const { items } = course || {};
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { drawerBg, floatingBtnBg, activeBg } = useColorModePresets();
+  const { drawerBg, floatingBtnBg } = useColorModePresets();
   const index = items?.findIndex((obj: any) => {
-    return obj?.id === activeSection?.id;
+    return obj?.id === activeLesson?.id;
   });
 
   return (
@@ -77,25 +74,7 @@ const CourseContentSidebar = () => {
               <Accordion defaultIndex={index}>
                 {items?.map((item: any, i: number) => {
                   return (
-                    <AccordionItem key={i}>
-                      <h2>
-                        <AccordionButton
-                          onClick={() => {
-                            // handleSetActiveLesson(item)
-                          }}
-                          _expanded={{
-                            bg: activeBg,
-                          }}
-                          _hover={{
-                            bg: activeBg,
-                          }}
-                        >
-                          <Box as="span" flex="1" textAlign="left">
-                            {item.title}
-                          </Box>
-                        </AccordionButton>
-                      </h2>
-                    </AccordionItem>
+                    <SidebarItem key={i} item={item} showDescription={false} />
                   );
                 })}
               </Accordion>
