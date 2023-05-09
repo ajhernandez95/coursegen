@@ -1,6 +1,6 @@
 import { IFetchLessonContent } from "./../interfaces/courseContent";
 import { supabase } from "../../../util/supabase";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useCourseContext } from "../../../context/CourseContext";
 import { v4 as uuidv4 } from "uuid";
@@ -75,9 +75,9 @@ const useCourseContent = () => {
         setCourse(data);
         if (setFirstLesson) {
           const firstLesson = findFirstLesson({ items: data.items });
+          setActiveLesson(firstLesson);
           const topics = await getTopics(courseId, firstLesson.id);
           setActiveTopics(topics);
-          setActiveLesson(firstLesson);
         }
 
         return data;
@@ -115,17 +115,19 @@ const useCourseContent = () => {
     []
   );
 
-  // Query for lesson content, if content does not exist then generate it.
   const handleSetActiveLesson = useCallback(
     async (courseId: string, lesson: ICourseItem<CourseItemType.LESSON>) => {
-      if (lesson) {
-        setActiveLesson(lesson);
-        if (!lesson.topics?.length) {
-          setIsFetchingLesson(true);
-          const topics = await getTopics(courseId, lesson.id);
-          setActiveTopics(topics);
-          setIsFetchingLesson(false);
+      try {
+        if (lesson) {
+          setActiveLesson(lesson);
+          if (!lesson.topics?.length) {
+            setIsFetchingLesson(true);
+            const topics = await getTopics(courseId, lesson.id);
+            setActiveTopics(topics);
+          }
         }
+      } finally {
+        setIsFetchingLesson(false);
       }
     },
     [setActiveLesson, handleGetLesson, setCourse]

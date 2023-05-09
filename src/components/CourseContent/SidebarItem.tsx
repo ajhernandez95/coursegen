@@ -26,7 +26,10 @@ const SidebarItem = ({
   const { course, activeLesson } = useCourseContext();
   const { handleSetActiveLesson } = useCourseContent();
   return (
-    <Accordion defaultIndex={0} allowToggle>
+    <Accordion
+      defaultIndex={activeLesson.parent_id === item.id ? 0 : undefined}
+      allowToggle
+    >
       <AccordionItem>
         <h2>
           {type === CourseItemType.MODULE ? (
@@ -47,11 +50,11 @@ const SidebarItem = ({
                   bg: activeBg,
                 }}
                 bg={activeLesson?.id === item.id ? activeBg : ""}
-                p="5px"
+                p="5px 0 5px 8px"
                 cursor="pointer"
                 onClick={() => handleSetActiveLesson(course.id, item)}
               >
-                <Text mb={1}>
+                <Text mb={0}>
                   {title} {dates && "(" + dates + ")"}
                 </Text>
               </ListItem>
