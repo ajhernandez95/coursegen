@@ -9,7 +9,7 @@ import {
 import { BiLogOut } from "react-icons/bi";
 import { supabase } from "../../util/supabase";
 
-const AccountAvatar = ({ size = "sm" }: { size: string }) => {
+const AccountAvatar = ({ size = "sm" }: { size?: string }) => {
   const handleSignOut = async () => {
     const { error } = await supabase?.auth.signOut();
     if (error) {
