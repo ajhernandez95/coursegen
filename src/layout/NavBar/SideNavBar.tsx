@@ -15,6 +15,7 @@ import useColorModePresets from "../../hooks/useColorModePresets";
 import useActivePath from "./hooks/useActiveNavItem";
 import pathPatternMapper from "./util/pathPatternMapper";
 import { Link } from "react-router-dom";
+import SignInButton from "../../components/SignInButton";
 
 const SideNavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,6 +37,9 @@ const SideNavBar = () => {
           <DrawerCloseButton />
           <DrawerHeader>CourseGen</DrawerHeader>
           <DrawerBody>
+            <Flex justifyContent="center">
+              <SignInButton />
+            </Flex>
             {pathPatternMapper.map(([path, name]) => (
               <Link key={path} to={path}>
                 <Box

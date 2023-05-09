@@ -4,7 +4,13 @@ import useStyles from "./hooks/useStyles";
 import SignOutButton from "../../components/SignOutButton";
 import SignInButton from "../../components/SignInButton";
 import { useSupabase } from "../../context/SupabaseContext";
-import { Flex, Show, TextProps, useColorModeValue } from "@chakra-ui/react";
+import {
+  Avatar,
+  Flex,
+  Show,
+  TextProps,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SideNavBar from "./SideNavBar";
 
@@ -34,6 +40,7 @@ const NavBar = () => {
         </Flex>
         <Box>
           <ColorModeSwitcher mr={[0, 2]} />
+          <Avatar size={["sm", "md"]} src="https://bit.ly/broken-link" />
           <Show above="sm">
             {isLoggedIn ? <SignOutButton /> : <SignInButton />}
           </Show>

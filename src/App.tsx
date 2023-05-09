@@ -13,23 +13,40 @@ import customTheme from "./util/customChakraTheme";
 import Root from "./components/Root";
 import MyCourses from "./components/MyCourses";
 import AboutUs from "./components/AboutUs";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export const routes = [
   {
     path: "search",
-    element: <Home />,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "my-courses",
-    element: <MyCourses />,
+    element: (
+      <ProtectedRoute>
+        <MyCourses />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "about-us",
-    element: <AboutUs />,
+    element: (
+      <ProtectedRoute>
+        <AboutUs />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "course/:courseId",
-    element: <CourseContent />,
+    element: (
+      <ProtectedRoute>
+        <CourseContent />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "login",
