@@ -31,7 +31,7 @@ const Home = () => {
         </Box>
       )}
       {!isSearching && !isSuccess && (
-        <Box pt="50%">
+        <Box pt="25%">
           <CourseSearch />
         </Box>
       )}
