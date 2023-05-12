@@ -17,6 +17,7 @@ const useMyCourses = () => {
       const { data, error } = await supabase
         .from("course")
         .select("*")
+        .order("created_at", { ascending: false })
         .eq("user_id", userId);
 
       if (error) {
