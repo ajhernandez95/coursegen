@@ -22,8 +22,7 @@ const NavBar = () => {
   const logo = useColorModeValue("owl-black.png", "owl-white.png");
 
   return (
-    <Box bg={bg} as="nav" top="0" w="100%">
-      {/** @ts-ignore */}
+    <Box bg={bg} as="nav" w="100%">
       <Flex alignItems="center" justifyContent="space-between" py={4} px={6}>
         <Flex alignItems="center">
           <SideNavBar />
@@ -32,7 +31,6 @@ const NavBar = () => {
               <Box w={30} h={30}>
                 <img src={"/" + logo} alt="logo" />
               </Box>
-              {/** @ts-ignore */}
               <Show above="md">
                 <Text {...textStyles}>CourseGen</Text>
               </Show>

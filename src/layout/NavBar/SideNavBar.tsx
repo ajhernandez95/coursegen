@@ -31,6 +31,7 @@ const SideNavBar = () => {
     <>
       <Flex alignItems="center" mr="8px">
         <IconButton
+          variant="ghost"
           aria-label="side-navigation"
           onClick={onOpen}
           icon={<GiHamburgerMenu size="25px" />}

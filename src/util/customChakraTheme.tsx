@@ -55,7 +55,6 @@ const customTheme = extendTheme({
       baseStyle: {
         container: {
           bg: mode("whiteAlpha.100", "initial"),
-          outline: "solid 1px",
         },
       },
     },

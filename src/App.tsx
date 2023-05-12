@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import LoginSignUp from "./components/LogInSignUp";
 import CourseContent from "./components/CourseContent";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CourseContextProvider } from "./context/CourseContext";
 import customTheme from "./util/customChakraTheme";
 import Root from "./components/Root";
@@ -88,8 +89,9 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <CourseContextProvider>
-        <Box height="100vh">
+        <Box>
           <ChakraProvider theme={customTheme}>
             <RouterProvider router={router} />
           </ChakraProvider>

@@ -27,9 +27,8 @@ const CourseSearch = () => {
   }, [search]);
 
   return (
-    <Box mt={100} mb={5}>
+    <Box mb={5}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* @ts-ignore */}
         <Heading mb={6} size={["2xl", "3xl", "4xl"]} textAlign="center">
           I'm CourseGen, an AI powered course generator.
         </Heading>

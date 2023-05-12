@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../../../util/supabase";
 import handleSupabaseResponse from "../../../util/handleSupabaseResponse";
 import { useSupabase } from "../../../context/SupabaseContext";
+import { useCallback } from "react";
+import { CourseItemType, ICourse } from "../../../types/course";
 
 const useMyCourses = () => {
   const { user } = useSupabase();
@@ -10,15 +12,23 @@ const useMyCourses = () => {
     handleFetchMyCourses()
   );
 
-  const handleFetchMyCourses = async () => {
-    await supabase
-      .from("course")
-      .select("*")
-      .eq("user_id", userId)
-      .then((response) => {
-        const res = handleSupabaseResponse(response);
-      });
-  };
+  const handleFetchMyCourses = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from("course")
+        .select("*")
+        .eq("user_id", userId);
+
+      if (error) {
+        return Promise.reject(error);
+      }
+
+      return data as ICourse<CourseItemType.LESSON | CourseItemType.MODULE>[];
+    } finally {
+      // TODO: Add fetchingCourses state
+    }
+  }, [userId]);
+
   return {
     data,
     isLoading,
