@@ -31,7 +31,12 @@ const Home = () => {
         </Box>
       )}
       {!isSearching && !isSuccess && (
-        <Box pt="25%">
+        <Box
+          position="absolute"
+          top="40%"
+          left="40%"
+          transform="translate(-35%, -35%)"
+        >
           <CourseSearch />
         </Box>
       )}
