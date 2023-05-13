@@ -23,7 +23,7 @@ const CourseContentSection = () => {
   );
 
   return activeTopics?.length ? (
-    <Box pt={2} pl={["20px", "30px"]} pr={["20px", "100px"]} mb={8}>
+    <Box pt={2} px={["20px", "10px"]} mb={8}>
       <Box>
         {isFetchingCourse || isFetchingLesson
           ? loadingGif

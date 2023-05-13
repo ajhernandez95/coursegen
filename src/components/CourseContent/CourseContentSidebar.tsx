@@ -1,76 +1,53 @@
-import { Box } from "@chakra-ui/layout";
-import { useCourseContext } from "../../context/CourseContext";
-import {
-  Accordion,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerHeader,
-  useDisclosure,
-  IconButton,
-  Show,
-  Text,
-} from "@chakra-ui/react";
+import { Accordion, Box, Fade, Flex, IconButton } from "@chakra-ui/react";
+import { useState } from "react";
 import { CiViewList } from "react-icons/ci";
-import { IoMdClose } from "react-icons/io";
+import { MdKeyboardBackspace } from "react-icons/md";
+import { useCourseContext } from "../../context/CourseContext";
 import useColorModePresets from "../../hooks/useColorModePresets";
 import SidebarItem from "./SidebarItem";
 
 const CourseContentSidebar = () => {
+  const { secondaryBgColor } = useColorModePresets();
+  const [isOpen, setIsOpen] = useState(false);
   const { course, activeLesson } = useCourseContext();
   const { items } = course || {};
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { drawerBg, floatingBtnBg } = useColorModePresets();
   const index = items?.findIndex((obj: any) => {
     return obj?.id === activeLesson?.id;
   });
 
   return (
-    <Box>
-      <Show above="sm">
-        <Box position="sticky" top="10px" pl="10px">
+    <Box
+      pt="10px"
+      minWidth={isOpen ? "314px" : "60px"}
+      width={isOpen ? "314px" : "60px"}
+      // bg={secondaryBgColor}
+      // borderRight="1px solid #E2E8F0"
+      transition="all 0.3s ease-out"
+      height="100vh"
+      top="0"
+      position="sticky"
+    >
+      {!isOpen && (
+        <Box pl="16px">
           <IconButton
-            bg={floatingBtnBg}
-            size="lg"
-            onClick={onOpen}
-            aria-label="Search database"
-            icon={<CiViewList size={35} />}
+            // size="lg"
+            variant="ghost"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Open Course Outline Sidebar"
+            icon={<CiViewList size={30} />}
           />
         </Box>
-      </Show>
-      <Show below="sm">
-        <Box position="fixed" bottom="10px" left="10px">
+      )}
+      {isOpen && (
+        <Box pl="16px">
           <IconButton
-            bg={floatingBtnBg}
-            size="lg"
-            onClick={onOpen}
-            aria-label="Search database"
-            icon={<CiViewList size={35} />}
+            variant="ghost"
+            aria-label="go back"
+            onClick={() => setIsOpen(!isOpen)}
+            icon={<MdKeyboardBackspace size={30} />}
           />
-        </Box>
-      </Show>
-
-      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-        <DrawerContent background={drawerBg}>
-          <DrawerHeader fontSize={["3xl"]} borderBottomWidth="1px">
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Text>Lessons</Text>{" "}
-              <IconButton
-                variant="ghost"
-                onClick={onClose}
-                aria-label="Close drawer"
-                icon={
-                  <IoMdClose cursor="pointer" size={35} onClick={onClose} />
-                }
-              />
-            </Box>
-          </DrawerHeader>
-          <DrawerBody>
-            {items && (
+          {items && (
+            <Fade in={isOpen} delay={0.35}>
               <Accordion defaultIndex={index}>
                 {items?.map((item: any, i: number) => {
                   return (
@@ -78,11 +55,12 @@ const CourseContentSidebar = () => {
                   );
                 })}
               </Accordion>
-            )}
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+            </Fade>
+          )}
+        </Box>
+      )}
     </Box>
   );
 };
+
 export default CourseContentSidebar;

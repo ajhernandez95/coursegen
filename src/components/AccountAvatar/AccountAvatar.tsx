@@ -30,7 +30,7 @@ const AccountAvatar = ({ size = "sm" }: { size?: string }) => {
         borderRadius="full"
         _focus={{ boxShadow: "none" }}
       >
-        <Avatar size={size} src="https://bit.ly/broken-link" />
+        <Avatar size={size} />
       </MenuButton>
       <MenuList>
         <MenuItem onClick={handleSignOut} icon={<BiLogOut />}>

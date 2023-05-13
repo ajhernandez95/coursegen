@@ -24,7 +24,7 @@ import { AccountAvatar } from "../../components/AccountAvatar";
 const SideNavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isLoggedIn } = useSupabase();
-  const { drawerBg, activeBg } = useColorModePresets();
+  const { primaryBgColor, activeBg } = useColorModePresets();
   const activePath = useActivePath();
 
   return (
@@ -39,7 +39,7 @@ const SideNavBar = () => {
       </Flex>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent background={drawerBg}>
+        <DrawerContent background={primaryBgColor}>
           <DrawerCloseButton />
           <DrawerHeader>CourseGen</DrawerHeader>
           <DrawerBody>

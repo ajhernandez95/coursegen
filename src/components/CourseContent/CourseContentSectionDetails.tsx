@@ -18,16 +18,22 @@ import {
 } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import useColorModePresets from "../../hooks/useColorModePresets";
 
 const CourseContentSectionDetails = ({ content }: { content: any }) => {
-  const headerBg = useColorModeValue("#EDF2F7", "#2C2D2E");
+  const { secondaryBgColor } = useColorModePresets();
   if (typeof content === "string") {
     content = JSON.parse(content);
   }
 
   return (
     <Box mb={8}>
-      <Box bg={headerBg} p={5} borderRadius="5px" display="inline-block">
+      <Box
+        bg={secondaryBgColor}
+        p={5}
+        borderRadius="5px"
+        display="inline-block"
+      >
         <Heading size="xl">{content.title}</Heading>
       </Box>
       <ReactMarkdown

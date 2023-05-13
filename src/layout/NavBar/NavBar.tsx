@@ -23,7 +23,7 @@ const NavBar = () => {
 
   return (
     <Box bg={bg} as="nav" w="100%">
-      <Flex alignItems="center" justifyContent="space-between" py={4} px={6}>
+      <Flex alignItems="center" justifyContent="space-between" py={2} px={4}>
         <Flex alignItems="center">
           <SideNavBar />
           <a href="/">
