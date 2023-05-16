@@ -20,17 +20,12 @@ const Home = () => {
       alignItems="center"
     >
       {isSearching && (
-        <Box
-          position="absolute"
-          top="50%"
-          left="50%"
-          transform="translate(-50%, -50%)"
-        >
+        <Box display="flex" flexDir="column" alignItems="center">
           <Image
             src="/dancing-owl.gif"
             borderRadius="50%"
-            width={["100px", "200px"]}
-            height={["100px", "200px"]}
+            width={["100px", "100px", "200px"]}
+            height={["100px", "100px", "200px"]}
           />
           <Text mt={5} textAlign="center">
             Generating Course
