@@ -4,22 +4,16 @@ import type { Property } from "csstype";
 const useStyles = () => {
   const boxStyles: {
     display: string;
-    margin: string;
-    paddingTop: string;
     justifyContent: string;
+    margin?: string;
   } = {
     display: "flex",
-    margin: "auto",
-    paddingTop: "150px",
     justifyContent: "center",
+    margin: "20px",
   };
 
-  const cardStyles: { padding: string; bg?: string } = {
-    padding: "10px 30px",
-  };
-
-  const textStyles: { fontSize: string } = {
-    fontSize: "2xl",
+  const tabStyles: { fontSize: string[] } = {
+    fontSize: ["sm", "md", "md"],
   };
 
   const formControlStyles: {
@@ -36,8 +30,7 @@ const useStyles = () => {
 
   return {
     boxStyles,
-    cardStyles,
-    textStyles,
+    tabStyles,
     formControlStyles,
     buttonStyles,
   };

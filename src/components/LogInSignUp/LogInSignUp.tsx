@@ -3,13 +3,12 @@ import {
   BoxProps,
   Card,
   CardBody,
-  CardProps,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
+  TabProps,
   Tabs,
-  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import LogIn from "./LogIn";
@@ -17,7 +16,7 @@ import useStyles from "./hooks/useStyles";
 import SignUp from "./SignUp";
 import { FC } from "react";
 import { useSupabase } from "../../context/SupabaseContext";
-import { Navigate, useLocation, useParams } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 interface LogInSignUpProps {
   startTab?: number;
@@ -25,7 +24,7 @@ interface LogInSignUpProps {
 
 const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
   const { isLoggedIn } = useSupabase();
-  const { boxStyles, cardStyles } = useStyles();
+  const { boxStyles, tabStyles } = useStyles();
   const tabColorScheme = useColorModeValue("gray", "gray");
   const useQuery = () => {
     return new URLSearchParams(useLocation().search);
@@ -40,8 +39,7 @@ const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
 
   return (
     <Box {...(boxStyles as BoxProps)}>
-      {/** @ts-ignore */}
-      <Card {...(cardStyles as CardProps)}>
+      <Card>
         <CardBody>
           <Tabs
             colorScheme={tabColorScheme}
@@ -50,8 +48,8 @@ const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
             defaultIndex={startTab}
           >
             <TabList>
-              <Tab>Log In</Tab>
-              <Tab>Sign Up</Tab>
+              <Tab {...(tabStyles as TabProps)}>Log In</Tab>
+              <Tab {...(tabStyles as TabProps)}>Sign Up</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
