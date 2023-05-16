@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Image } from "@chakra-ui/react";
 import { useCourseContext } from "../../context/CourseContext";
 import CourseContentSectionDetails from "./CourseContentSectionDetails";
 // TODO: Rename to CourseContentLesson
@@ -7,16 +7,12 @@ const CourseContentSection = () => {
     useCourseContext();
   // TODO: Extract this to a component
   const loadingGif = (
-    <Box
-      position="absolute"
-      left="50%"
-      top="50%"
-      marginTop="-100px"
-      marginLeft="-100px"
-    >
-      <img
+    <Box display="flex" flexDir="column" alignItems="center">
+      <Image
         src="/dancing-owl.gif"
-        style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+        width={["100px", "100px", "200px"]}
+        height={["100px", "100px", "200px"]}
+        borderRadius="50%"
       />
       <Text mt={5}>Generating Lesson Content</Text>
     </Box>
