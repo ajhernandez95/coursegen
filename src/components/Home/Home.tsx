@@ -12,12 +12,13 @@ const Home = () => {
   return (
     <Box
       position="relative"
-      height="100%"
+      minH="90vh"
       width="100vw"
       padding={["0 2rem", "0 5rem", "0 10rem"]}
       display="flex"
       flexDir="column"
       alignItems="center"
+      justifyContent="center"
     >
       {isSearching && (
         <Box display="flex" flexDir="column" alignItems="center">

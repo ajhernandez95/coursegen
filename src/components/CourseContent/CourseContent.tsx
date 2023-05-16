@@ -5,9 +5,11 @@ import useGetCourseQuery from "./hooks/useGetCourseQuery";
 import CourseContentSidebar from "./CourseContentSidebar";
 import CourseContentSidebarMobile from "./CourseContentSidebarMobile";
 import CourseContentSection from "./CourseContentSection";
+import { useCourseContext } from "../../context/CourseContext";
 
 const CourseContent = () => {
   const { courseId } = useParams();
+  const { isFetchingCourse } = useCourseContext();
   useGetCourseQuery(courseId);
 
   return (
