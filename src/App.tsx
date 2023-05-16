@@ -15,6 +15,7 @@ import Root from "./components/Root";
 import MyCourses from "./components/MyCourses";
 import AboutUs from "./components/AboutUs";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ViewContextProvider } from "./context/ViewContext";
 
 export const routes = [
   {
@@ -91,11 +92,13 @@ export const App = () => {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <CourseContextProvider>
-        <Box>
-          <ChakraProvider theme={customTheme}>
-            <RouterProvider router={router} />
-          </ChakraProvider>
-        </Box>
+        <ViewContextProvider>
+          <Box>
+            <ChakraProvider theme={customTheme}>
+              <RouterProvider router={router} />
+            </ChakraProvider>
+          </Box>
+        </ViewContextProvider>
       </CourseContextProvider>
     </QueryClientProvider>
   );

@@ -1,25 +1,19 @@
 import { Box, Text } from "@chakra-ui/layout";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
 import useStyles from "./hooks/useStyles";
-import SignOutButton from "../../components/SignOutButton";
 import SignInButton from "../../components/SignInButton";
 import { useSupabase } from "../../context/SupabaseContext";
-import {
-  Avatar,
-  Flex,
-  Show,
-  TextProps,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { Flex, Show, useColorModeValue } from "@chakra-ui/react";
 import SideNavBar from "./SideNavBar";
 import { AccountAvatar } from "../../components/AccountAvatar";
+import { useView } from "../../context/ViewContext";
 
 const NavBar = () => {
   const { textStyles } = useStyles();
   const { isLoggedIn } = useSupabase();
   const bg = useColorModeValue("white", "black.900");
   const logo = useColorModeValue("owl-black.png", "owl-white.png");
+  const { isMobile } = useView();
 
   return (
     <Box bg={bg} as="nav" w="100%">
@@ -28,11 +22,13 @@ const NavBar = () => {
           <SideNavBar />
           <a href="/">
             <Box display="flex" alignItems="center">
-              <Box w={30} h={30}>
+              <Box w={["30px", "30px", "30px"]}>
                 <img src={"/" + logo} alt="logo" />
               </Box>
               <Show above="md">
-                <Text {...textStyles}>CourseGen</Text>
+                <Text {...textStyles} fontSize={["20px", "20px", "30px"]}>
+                  CourseGen
+                </Text>
               </Show>
             </Box>
           </a>

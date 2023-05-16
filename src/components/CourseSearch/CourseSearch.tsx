@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Input, Button, Heading } from "@chakra-ui/react";
+import { Box, Input, Button, Heading, useMediaQuery } from "@chakra-ui/react";
 import { useCourseContext } from "../../context/CourseContext";
 import useCourseSearchQuery from "./hooks/useCourseSearchQuery";
 
@@ -27,9 +27,9 @@ const CourseSearch = () => {
   }, [search]);
 
   return (
-    <Box mb={5}>
+    <Box display="flex" justifyContent="center" mb={5}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Heading mb={6} size={["2xl", "2xl", "4xl"]} textAlign="center">
+        <Heading size={["lg", "2xl", "3xl"]} mb="40px" textAlign="center">
           I'm CourseGen, an AI powered course generator.
         </Heading>
 
@@ -42,12 +42,12 @@ const CourseSearch = () => {
           <Input
             size={["sm", "md", "lg"]}
             w="100%"
+            mb="20px"
             maxW={900}
-            mt={4}
             placeholder="e.g., Introduction to Programming, History of Human Civilization"
             {...register("search")}
           ></Input>
-          <Button size="lg" mt={5} type="submit">
+          <Button size={["md", "md", "lg"]} type="submit">
             Search
           </Button>
         </Box>

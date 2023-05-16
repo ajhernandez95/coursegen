@@ -5,10 +5,16 @@ import NavBar from "../../layout/NavBar";
 const Root = () => {
   return (
     <Box overflow="auto">
-      <Flex alignItems="center" h={["10vh", "8vh", "10vh"]} maxH="10vh">
+      <Flex height="10vh" minHeight="50px" maxHeight="70px" alignItems="center">
         <NavBar />
       </Flex>
-      <Box h={["92vh", "92vh", "90vh"]} maxH="90vh">
+      <Box
+        display="flex"
+        flexDir="column"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="90vh"
+      >
         <Outlet />
       </Box>
     </Box>

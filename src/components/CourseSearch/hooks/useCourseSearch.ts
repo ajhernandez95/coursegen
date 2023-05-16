@@ -13,7 +13,6 @@ const useCourseSearch = () => {
         body: {
           search_text: search,
           max_tokens: 3000,
-          gpt_model: process.env.NODE_ENV === "production" ? gpt.v4 : gpt.v3,
         },
       });
 

@@ -3,17 +3,22 @@ import CourseOutline from "../CourseOutline";
 import CourseSearch from "../CourseSearch";
 import { useCourseContext } from "../../context/CourseContext";
 import useCourseSearchQuery from "../CourseSearch/hooks/useCourseSearchQuery";
-import { MdKeyboardBackspace } from "react-icons/md";
-import { IconButton } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { Image } from "@chakra-ui/react";
 
 const Home = () => {
   const { isSearching, search } = useCourseContext();
   const { isSuccess } = useCourseSearchQuery(search);
-  const queryClient = useQueryClient();
 
   return (
-    <Box padding={["0 2rem", "0 5rem", "0 10rem"]}>
+    <Box
+      position="relative"
+      height="100%"
+      width="100vw"
+      padding={["0 2rem", "0 5rem", "0 10rem"]}
+      display="flex"
+      flexDir="column"
+      alignItems="center"
+    >
       {isSearching && (
         <Box
           position="absolute"
@@ -21,9 +26,11 @@ const Home = () => {
           left="50%"
           transform="translate(-50%, -50%)"
         >
-          <img
+          <Image
             src="/dancing-owl.gif"
-            style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+            borderRadius="50%"
+            width={["100px", "200px"]}
+            height={["100px", "200px"]}
           />
           <Text mt={5} textAlign="center">
             Generating Course
@@ -31,24 +38,9 @@ const Home = () => {
         </Box>
       )}
       {!isSearching && !isSuccess && (
-        <Box
-          position="absolute"
-          top="40%"
-          left="40%"
-          transform="translate(-35%, -35%)"
-        >
+        <Box width="80%" maxWidth="600px">
           <CourseSearch />
         </Box>
-      )}
-      {!isSearching && isSuccess && (
-        <IconButton
-          mb={3}
-          aria-label="go back"
-          size="lg"
-          paddingX="20px"
-          onClick={() => queryClient.resetQueries(["courseSearch", search])}
-          icon={<MdKeyboardBackspace />}
-        />
       )}
       {isSuccess && <CourseOutline />}
     </Box>

@@ -31,6 +31,7 @@ const SideNavBar = () => {
     <>
       <Flex alignItems="center" mr="8px">
         <IconButton
+          w="30px"
           variant="ghost"
           aria-label="side-navigation"
           onClick={onOpen}

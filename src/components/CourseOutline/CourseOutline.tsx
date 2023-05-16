@@ -5,12 +5,15 @@ import { RefObject, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import CourseItems from "./CourseItems";
 import { useCourseContext } from "../../context/CourseContext";
+import { useQueryClient } from "@tanstack/react-query";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const CourseOutline = () => {
-  const { course, copyCourseLink } = useCourseContext();
+  const { course, copyCourseLink, search } = useCourseContext();
   const { id: courseId, title, dates, description, items } = course || {};
   const courseContainerRef = useRef<HTMLDivElement>(null);
   const courseTitleRef = useRef<HTMLDivElement>(null);
+  const queryClient = useQueryClient();
 
   const handleCopyCourseLink = () => copyCourseLink();
 
@@ -28,6 +31,14 @@ const CourseOutline = () => {
 
   return courseId ? (
     <Box ref={courseContainerRef}>
+      <IconButton
+        mb={3}
+        aria-label="go back"
+        size="lg"
+        paddingX="20px"
+        onClick={() => queryClient.resetQueries(["courseSearch", search])}
+        icon={<MdKeyboardBackspace />}
+      />
       <Box
         display="flex"
         justifyContent={["center", "space-between"]}
