@@ -1,15 +1,14 @@
 import { supabase } from "../../../util/supabase";
 import { newCourse } from "../../../services/edgeFunctions";
 import { useCourseContext } from "../../../context/CourseContext";
-import { useCallback, useState } from "react";
-import { gpt } from "../../../constants/modelVersions";
+import { useCallback } from "react";
 
 const useCourseSearch = () => {
   const { search, setIsSearching, setCourse } = useCourseContext();
 
   const handleSearch = useCallback(async () => {
     try {
-      const { data, error } = await supabase.functions.invoke(newCourse.v2, {
+      const { data, error } = await supabase.functions.invoke(newCourse.v4, {
         body: {
           search_text: search,
           max_tokens: 3000,

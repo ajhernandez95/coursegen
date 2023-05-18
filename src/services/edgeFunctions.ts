@@ -1,6 +1,8 @@
 export const newCourse = {
   v1: "new_course",
   v2: "new_course_v2",
+  v3: "new_course_v3",
+  v4: "new_course_v4",
 };
 
 export const lessonContent = {
