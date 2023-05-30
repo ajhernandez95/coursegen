@@ -37,7 +37,6 @@ const CourseContentSection = () => {
       <Box>
         {isFetchingCourse || isFetchingLesson ? (
           <Box
-            bg="red"
             height="100%"
             display="flex"
             justifyContent="center"
