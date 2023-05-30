@@ -14,7 +14,7 @@ const CourseContent = () => {
 
   return (
     <Box display="flex" width="100%">
-      <Show below="sm">
+      <Show below="md">
         <CourseContentSidebarMobile />
       </Show>
       <Show above="md">

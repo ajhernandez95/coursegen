@@ -27,19 +27,17 @@ const CourseContentSidebarMobile = () => {
 
   return (
     <>
-      <Show below="sm">
-        <Box position="fixed" bottom="10px" right="10px">
-          <IconButton
-            color={altBtnColor}
-            bg={altBtnBg}
-            _hover={{ bg: altBtnBg, color: altBtnColor }}
-            size="lg"
-            onClick={onOpen}
-            aria-label="Search database"
-            icon={<CiViewList size={35} />}
-          />
-        </Box>
-      </Show>
+      <Box position="fixed" bottom="10px" right="10px">
+        <IconButton
+          color={altBtnColor}
+          bg={altBtnBg}
+          _hover={{ bg: altBtnBg, color: altBtnColor }}
+          size="lg"
+          onClick={onOpen}
+          aria-label="Search database"
+          icon={<CiViewList size={35} />}
+        />
+      </Box>
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerContent background={primaryBgColor}>

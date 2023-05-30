@@ -13,6 +13,7 @@ const CourseContentSection = () => {
       justifyContent="center"
       alignItems="center"
       width="100%"
+      height="100%"
     >
       <Image
         src="/dancing-owl.gif"
@@ -24,43 +25,20 @@ const CourseContentSection = () => {
     </Box>
   );
 
-  return activeTopics?.length ? (
+  return (
     <Box
       display="flex"
       flexDir="column"
-      justifyContent="center"
       pt={2}
       px={["20px", "10px"]}
       mb={8}
       width="100%"
     >
-      <Box>
-        {isFetchingCourse || isFetchingLesson ? (
-          <Box
-            height="100%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {loadingGif}
-          </Box>
-        ) : (
-          activeTopics.map((topic: any, i: number) => (
+      {isFetchingCourse || isFetchingLesson || !activeTopics?.length
+        ? loadingGif
+        : activeTopics.map((topic: any, i: number) => (
             <CourseContentSectionDetails content={topic} key={i} />
-          ))
-        )}
-      </Box>
-    </Box>
-  ) : (
-    <Box
-      display="flex"
-      flexDir="column"
-      justifyContent="center"
-      pt={2}
-      px={["20px", "10px"]}
-      width="100%"
-    >
-      {loadingGif}
+          ))}
     </Box>
   );
 };
