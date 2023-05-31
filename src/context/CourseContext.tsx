@@ -33,6 +33,7 @@ interface ICourseContext {
   isFetchingTopics: boolean;
   setIsFetchingTopics: Dispatch<SetStateAction<boolean>>;
   clearCourseContentState: () => void;
+  clearLessonContentState: () => void;
 }
 
 export const CourseContext = createContext<ICourseContext>({
@@ -58,6 +59,7 @@ export const CourseContext = createContext<ICourseContext>({
   isFetchingTopics: false,
   setIsFetchingTopics: () => undefined,
   clearCourseContentState: () => undefined,
+  clearLessonContentState: () => undefined,
 });
 
 export const CourseContextProvider = ({
@@ -80,6 +82,11 @@ export const CourseContextProvider = ({
   const clearCourseContentState = () => {
     setCourse(undefined);
     setActiveLesson(undefined);
+  };
+
+  const clearLessonContentState = () => {
+    setActiveLesson(undefined);
+    setActiveTopics(undefined);
   };
 
   const copyCourseLink = () => {
@@ -120,6 +127,7 @@ export const CourseContextProvider = ({
         isFetchingTopics,
         setIsFetchingTopics,
         clearCourseContentState,
+        clearLessonContentState,
       }}
     >
       {children}

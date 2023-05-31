@@ -12,6 +12,7 @@ const useCourseContent = () => {
   const { courseId } = useParams();
   const {
     clearCourseContentState,
+    clearLessonContentState,
     setCourse,
     setActiveLesson,
     setActiveTopics,
@@ -41,18 +42,25 @@ const useCourseContent = () => {
 
   const handleGetLesson = useCallback(
     async ({ courseId, lessonId }: { courseId: any; lessonId: any }) => {
-      return await supabase.functions
-        .invoke(lessonContent.v2, {
-          body: {
-            lesson_id: lessonId,
-            course_id: courseId,
-            session_key: uuidv4(),
-          } as IFetchLessonContent,
-        })
-        .then(({ data: lessonData }) => {
-          setIsFetchingLesson(false);
-          return lessonData;
-        });
+      try {
+        clearLessonContentState();
+        const { data, error } = await supabase.functions.invoke(
+          lessonContent.v2,
+          {
+            body: {
+              lesson_id: lessonId,
+              course_id: courseId,
+              session_key: uuidv4(),
+            } as IFetchLessonContent,
+          }
+        );
+
+        if (error) {
+          return Promise.reject(error);
+        }
+        setIsFetchingLesson(false);
+        return data;
+      } catch (error) {}
     },
     []
   );
@@ -119,6 +127,7 @@ const useCourseContent = () => {
     async (courseId: string, lesson: ICourseItem<CourseItemType.LESSON>) => {
       try {
         if (lesson) {
+          clearLessonContentState();
           setActiveLesson(lesson);
           if (!lesson.topics?.length) {
             setIsFetchingLesson(true);
