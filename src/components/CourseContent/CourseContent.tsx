@@ -13,7 +13,7 @@ const CourseContent = () => {
   useGetCourseQuery(courseId);
 
   return (
-    <Box display="flex" width="100%">
+    <Box display="flex" width="100%" minH="90vh">
       <Show below="md">
         <CourseContentSidebarMobile />
       </Show>
