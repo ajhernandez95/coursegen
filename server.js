@@ -3,7 +3,7 @@ const express = require("express");
 const serveStatic = require("serve-static");
 const app = express();
 const port = process.env.PORT || 5000;
-
+app.set("trust proxy", 1);
 app.use((req, res, next) => {
   if (req.secure) {
     next();
