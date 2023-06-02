@@ -38,30 +38,32 @@ const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
   }
 
   return (
-    <Box {...(boxStyles as BoxProps)}>
-      <Card>
-        <CardBody>
-          <Tabs
-            colorScheme={tabColorScheme}
-            variant="solid-rounded"
-            align="center"
-            defaultIndex={startTab}
-          >
-            <TabList>
-              <Tab {...(tabStyles as TabProps)}>Log In</Tab>
-              <Tab {...(tabStyles as TabProps)}>Sign Up</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <LogIn />
-              </TabPanel>
-              <TabPanel>
-                <SignUp />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </CardBody>
-      </Card>
+    <Box minH="90vh" display="flex" justifyContent="center" alignItems="center">
+      <Box {...boxStyles}>
+        <Card>
+          <CardBody>
+            <Tabs
+              colorScheme={tabColorScheme}
+              variant="solid-rounded"
+              align="center"
+              defaultIndex={startTab}
+            >
+              <TabList>
+                <Tab {...tabStyles}>Log In</Tab>
+                <Tab {...tabStyles}>Sign Up</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <LogIn />
+                </TabPanel>
+                <TabPanel>
+                  <SignUp />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </CardBody>
+        </Card>
+      </Box>
     </Box>
   );
 };

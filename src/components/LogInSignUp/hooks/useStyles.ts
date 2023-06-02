@@ -2,11 +2,7 @@ import { ResponsiveValue, useColorModeValue } from "@chakra-ui/react";
 import type { Property } from "csstype";
 
 const useStyles = () => {
-  const boxStyles: {
-    display: string;
-    justifyContent: string;
-    margin?: string;
-  } = {
+  const boxStyles = {
     display: "flex",
     justifyContent: "center",
     margin: "20px",
