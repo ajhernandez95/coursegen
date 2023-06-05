@@ -1,16 +1,24 @@
-import { Box, Button, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import CourseItem from "./CourseItem";
 import useMyCourses from "./hooks/useMyCourses";
 import { CourseItemType, ICourse } from "../../types/course";
-import { useState } from "react";
+import { LoadingGif } from "../LoadingGif";
 
 const MyCourses = () => {
-  const { data: courses, isLoading, isError } = useMyCourses();
+  const { data: courses, isLoading } = useMyCourses();
 
-  return (
-    <Flex>
+  return isLoading ? (
+    <Box
+      height="90vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <LoadingGif text="Loading Courses" />
+    </Box>
+  ) : (
+    <Flex justifyContent="center" alignItems="center">
       <Box
-        w="100%"
         p="5px 15px"
         maxH="90vh"
         overflow="auto"
@@ -19,13 +27,18 @@ const MyCourses = () => {
         flexWrap="wrap"
         gap="20px"
       >
-        {courses?.length
-          ? courses.map(
-              (
-                course: ICourse<CourseItemType.LESSON | CourseItemType.MODULE>
-              ) => <CourseItem key={course.id} course={course} />
-            )
-          : null}
+        {courses?.length ? (
+          courses?.map(
+            (
+              course: ICourse<CourseItemType.LESSON | CourseItemType.MODULE>
+            ) => <CourseItem key={course.id} course={course} />
+          )
+        ) : (
+          <Text>
+            No courses yet, try generating some and come back later to see them
+            here.
+          </Text>
+        )}
       </Box>
     </Flex>
   );

@@ -36,11 +36,7 @@ export const routes = [
   },
   {
     path: "about-us",
-    element: (
-      <ProtectedRoute>
-        <AboutUs />
-      </ProtectedRoute>
-    ),
+    element: <AboutUs />,
   },
   {
     path: "course/:courseId",

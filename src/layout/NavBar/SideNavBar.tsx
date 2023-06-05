@@ -49,19 +49,22 @@ const SideNavBar = () => {
                 {!isLoggedIn ? <SignInButton /> : <AccountAvatar size="md" />}
               </Flex>
             </Show>
-            {pathPatternMapper.map(([path, name]) => (
-              <Link key={path} to={path}>
-                <Box
-                  key={path}
-                  cursor="pointer"
-                  p="10px"
-                  bg={`/${activePath}` === path ? activeBg : "initial"}
-                  _hover={{ bg: activeBg }}
-                >
-                  {name}
-                </Box>
-              </Link>
-            ))}
+            {pathPatternMapper.map(
+              ({ path, title, isProtected }) =>
+                ((isProtected && isLoggedIn) || !isProtected) && (
+                  <Link key={path} to={path}>
+                    <Box
+                      key={path}
+                      cursor="pointer"
+                      p="10px"
+                      bg={`/${activePath}` === path ? activeBg : "initial"}
+                      _hover={{ bg: activeBg }}
+                    >
+                      {title}
+                    </Box>
+                  </Link>
+                )
+            )}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

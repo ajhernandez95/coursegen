@@ -1,5 +1,5 @@
 export default [
-  ["/search", "Search"],
-  ["/my-courses", "My Courses"],
-  ["/about-us", "About Us"],
+  { path: "/search", title: "Search", isProtected: true },
+  { path: "/my-courses", title: "My Courses", isProtected: true },
+  { path: "/about-us", title: "About Us", isProtected: false },
 ];

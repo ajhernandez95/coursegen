@@ -6,14 +6,12 @@ import { useSupabase } from "../../context/SupabaseContext";
 import { Flex, Show, useColorModeValue } from "@chakra-ui/react";
 import SideNavBar from "./SideNavBar";
 import { AccountAvatar } from "../../components/AccountAvatar";
-import { useView } from "../../context/ViewContext";
 
 const NavBar = () => {
   const { textStyles } = useStyles();
   const { isLoggedIn } = useSupabase();
   const bg = useColorModeValue("white", "black.900");
   const logo = useColorModeValue("owl-black.png", "owl-white.png");
-  const { isMobile } = useView();
 
   return (
     <Box bg={bg} as="nav" w="100%">

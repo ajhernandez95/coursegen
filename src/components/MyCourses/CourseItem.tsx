@@ -19,7 +19,7 @@ const CourseItem = ({
   course: ICourse<CourseItemType.LESSON | CourseItemType.MODULE>;
 }) => {
   return (
-    <Card variant="outline" border="solid 1px" m="0px 0px 20px 0px" w="600px">
+    <Card variant="outline" border="solid 1px" m="0px 0px 20px 0px" w="500px">
       <CardBody>
         <Stack spacing="3">
           <RiBook2Line size="40" /> <Heading size="md">{course.title}</Heading>
