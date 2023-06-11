@@ -7,8 +7,7 @@ import useColorModePresets from "../../hooks/useColorModePresets";
 import SidebarItem from "./SidebarItem";
 
 const CourseContentSidebar = () => {
-  const { secondaryBgColor } = useColorModePresets();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const { course, activeLesson } = useCourseContext();
   const { items } = course || {};
   const index = items?.findIndex((obj: any) => {
@@ -20,17 +19,16 @@ const CourseContentSidebar = () => {
       pt="10px"
       minWidth={isOpen ? "314px" : "60px"}
       width={isOpen ? "314px" : "60px"}
-      // bg={secondaryBgColor}
-      // borderRight="1px solid #E2E8F0"
       transition="all 0.3s ease-out"
-      height="100vh"
+      height="90vh"
+      maxH="100vh"
       top="0"
       position="sticky"
+      overflowY="auto"
     >
       {!isOpen && (
         <Box pl="16px">
           <IconButton
-            // size="lg"
             variant="ghost"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Open Course Outline Sidebar"

@@ -31,8 +31,9 @@ const CourseContentSection = () => {
       flexDir="column"
       pt={2}
       px={["20px", "10px"]}
-      mb={8}
       width="100%"
+      maxHeight="90vh"
+      overflowY="auto"
     >
       {isFetchingCourse || isFetchingLesson || !activeTopics?.length
         ? loadingGif
