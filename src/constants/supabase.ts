@@ -5,4 +5,5 @@ export const defaultSupabaseContext = {
   isLoggedIn: null,
   user: null,
   session: null,
+  supabase,
 };

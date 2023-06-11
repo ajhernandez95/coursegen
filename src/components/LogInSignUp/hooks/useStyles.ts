@@ -6,6 +6,12 @@ const useStyles = () => {
     display: "flex",
     justifyContent: "center",
     margin: "20px",
+    width: "80%",
+    maxWidth: "400px",
+  };
+
+  const cardStyles = {
+    width: "100%",
   };
 
   const tabStyles: { fontSize: string[] } = {
@@ -26,6 +32,7 @@ const useStyles = () => {
 
   return {
     boxStyles,
+    cardStyles,
     tabStyles,
     formControlStyles,
     buttonStyles,

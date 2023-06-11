@@ -1,31 +1,18 @@
-import {
-  Box,
-  BoxProps,
-  Card,
-  CardBody,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  TabProps,
-  Tabs,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import LogIn from "./LogIn";
+import { Box, Card, CardBody, useColorModeValue } from "@chakra-ui/react";
 import useStyles from "./hooks/useStyles";
-import SignUp from "./SignUp";
 import { FC } from "react";
 import { useSupabase } from "../../context/SupabaseContext";
 import { Navigate, useLocation } from "react-router-dom";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 
-interface LogInSignUpProps {
-  startTab?: number;
-}
+interface LogInSignUpProps {}
 
-const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
-  const { isLoggedIn } = useSupabase();
-  const { boxStyles, tabStyles } = useStyles();
-  const tabColorScheme = useColorModeValue("gray", "gray");
+const LogInSignUp: FC<LogInSignUpProps> = () => {
+  const { isLoggedIn, supabase } = useSupabase();
+  const { boxStyles, cardStyles } = useStyles();
+  const bg = useColorModeValue("#EDF2F7", "#1A1C1E");
+  const color = useColorModeValue("#1A1C1E", "white");
   const useQuery = () => {
     return new URLSearchParams(useLocation().search);
   };
@@ -40,27 +27,31 @@ const LogInSignUp: FC<LogInSignUpProps> = ({ startTab = 0 }) => {
   return (
     <Box minH="90vh" display="flex" justifyContent="center" alignItems="center">
       <Box {...boxStyles}>
-        <Card>
+        <Card {...cardStyles}>
           <CardBody>
-            <Tabs
-              colorScheme={tabColorScheme}
-              variant="solid-rounded"
-              align="center"
-              defaultIndex={startTab}
-            >
-              <TabList>
-                <Tab {...tabStyles}>Log In</Tab>
-                <Tab {...tabStyles}>Sign Up</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <LogIn />
-                </TabPanel>
-                <TabPanel>
-                  <SignUp />
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
+            <Auth
+              supabaseClient={supabase}
+              providers={["google", "github"]}
+              appearance={{
+                theme: ThemeSupa,
+                style: {
+                  container: {
+                    width: "100%",
+                  },
+                  button: {
+                    border: "none",
+                    backgroundColor: bg,
+                    color: color,
+                  },
+                  input: {
+                    backgroundColor: bg,
+                    color: color,
+                  },
+                },
+              }}
+              theme="dark"
+              socialLayout="horizontal"
+            />
           </CardBody>
         </Card>
       </Box>

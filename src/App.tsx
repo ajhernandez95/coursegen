@@ -52,7 +52,7 @@ export const routes = [
   },
   {
     path: "signup",
-    element: <LoginSignUp startTab={1} />,
+    element: <LoginSignUp />,
   },
 ];
 

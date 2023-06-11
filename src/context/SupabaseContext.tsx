@@ -1,4 +1,4 @@
-import { Session, User } from "@supabase/supabase-js";
+import { Session, SupabaseClient, User } from "@supabase/supabase-js";
 import {
   createContext,
   useState,
@@ -6,18 +6,18 @@ import {
   useEffect,
   useContext,
 } from "react";
-import { supabase } from "../util/supabase";
-import { defaultSupabaseContext } from "../constants/supabase";
+import { supabase as supabaseClient } from "../util/supabase";
 
 interface ISupabaseContext {
   isLoading: boolean;
   isLoggedIn: boolean | null;
   user: User | null;
   session: Session | null;
+  supabase: SupabaseClient;
 }
 
-export const SupabaseContext = createContext<ISupabaseContext>(
-  defaultSupabaseContext
+export const SupabaseContext = createContext(
+  null as unknown as ISupabaseContext
 );
 
 export const SupabaseContextProvider = ({
@@ -29,6 +29,7 @@ export const SupabaseContextProvider = ({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [supabase] = useState<SupabaseClient>(supabaseClient);
 
   useEffect(() => {
     // Handles initial check if user is logged in
@@ -65,7 +66,9 @@ export const SupabaseContextProvider = ({
   }, []);
 
   return (
-    <SupabaseContext.Provider value={{ isLoading, isLoggedIn, user, session }}>
+    <SupabaseContext.Provider
+      value={{ isLoading, isLoggedIn, user, session, supabase }}
+    >
       {children}
     </SupabaseContext.Provider>
   );
