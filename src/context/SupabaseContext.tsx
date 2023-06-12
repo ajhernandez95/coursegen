@@ -39,14 +39,10 @@ export const SupabaseContextProvider = ({
         setSession(null);
         setUser(null);
         setIsLoggedIn(false);
-        axios.defaults.headers.common["Authorization"] = "";
       } else {
         setSession(session);
         setUser(session?.user || null);
         setIsLoggedIn(true);
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${session?.access_token}`;
       }
       setIsLoading(false);
     });
@@ -56,6 +52,9 @@ export const SupabaseContextProvider = ({
       (event, session) => {
         setSession(session);
         setUser(session?.user || null);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${session?.access_token}`;
         if (event === "SIGNED_IN" && !isLoggedIn) {
           setIsLoggedIn(true);
         } else if (event === "SIGNED_OUT") {
