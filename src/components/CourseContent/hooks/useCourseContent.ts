@@ -4,9 +4,11 @@ import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useCourseContext } from "../../../context/CourseContext";
 import { v4 as uuidv4 } from "uuid";
-import { CourseItemType, ICourse, ICourseItem } from "../../../types/course";
-import { getCourse, lessonContent } from "../../../services/edgeFunctions";
+import { CourseItemType, ICourseItem } from "../../../types/course";
+import { lessonContent } from "../../../services/edgeFunctions";
 import { findFirstLesson } from "../util/courseContentHelpers";
+import endpoints from "../../../services/endpoints";
+import { getReq, postReq } from "../../../services/httpClient";
 
 const useCourseContent = () => {
   const { courseId } = useParams();
@@ -71,14 +73,17 @@ const useCourseContent = () => {
         if (!courseId) return Promise.reject("No course id provided");
         setIsFetchingCourse(true);
         clearCourseContentState();
-
-        const { data, error } = await supabase.functions.invoke(getCourse.v1, {
-          body: { course_id: courseId },
+        // WIP: This is a temporary fix to get the course data from the new API
+        const { data } = await getReq(
+          `${endpoints.v1.course.get(courseId)}`
+        ).then((res) => {
+          console.log(res);
+          return res;
         });
 
-        if (error) {
-          return Promise.reject(error);
-        }
+        // if (error) {
+        //   return Promise.reject(error);
+        // }
 
         setCourse(data);
         if (setFirstLesson) {
@@ -100,20 +105,15 @@ const useCourseContent = () => {
     async ({ lessonId, courseId }: { lessonId: string; courseId: string }) => {
       setIsFetchingTopics(true);
       try {
-        const { data, error } = await supabase.functions.invoke(
-          lessonContent.v2,
-          {
-            body: {
-              lesson_id: lessonId,
-              course_id: courseId,
-              session_key: uuidv4(),
-            },
-          }
-        );
+        const { data } = await postReq(endpoints.v1.topics.post, {
+          lesson_id: lessonId,
+          course_id: courseId,
+          session_key: uuidv4(),
+        });
 
-        if (error) {
-          return Promise.reject(error);
-        }
+        // if (error) {
+        //   return Promise.reject(error);
+        // }
 
         return data;
       } finally {

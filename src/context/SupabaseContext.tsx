@@ -7,6 +7,7 @@ import {
   useContext,
 } from "react";
 import { supabase as supabaseClient } from "../util/supabase";
+import axios from "axios";
 
 interface ISupabaseContext {
   isLoading: boolean;
@@ -38,10 +39,14 @@ export const SupabaseContextProvider = ({
         setSession(null);
         setUser(null);
         setIsLoggedIn(false);
+        axios.defaults.headers.common["Authorization"] = "";
       } else {
         setSession(session);
         setUser(session?.user || null);
         setIsLoggedIn(true);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${session?.access_token}`;
       }
       setIsLoading(false);
     });
