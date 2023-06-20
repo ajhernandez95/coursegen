@@ -12,9 +12,7 @@ const useGenerationStatus = () => {
   };
 
   const pollGenrationStatus = (refetchFn: () => void) => {
-    console.log("Polling init");
     setTimeout(() => {
-      console.log("Polling Fired");
       refetchFn();
     }, 30000);
   };
