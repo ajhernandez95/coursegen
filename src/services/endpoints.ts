@@ -7,5 +7,8 @@ export default {
     topics: {
       post: "/api/v1/topics",
     },
+    generationLogs: {
+      get: "/api/v1/generationlogs",
+    },
   },
 };
