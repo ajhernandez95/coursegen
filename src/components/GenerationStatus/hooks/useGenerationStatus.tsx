@@ -1,8 +1,10 @@
 import { Stack, Tag, Spinner, ToastPosition } from "@chakra-ui/react";
 import endpoints from "../../../services/endpoints";
 import { getReq } from "../../../services/httpClient";
+import { useNavigate } from "react-router-dom";
 
 const useGenerationStatus = () => {
+  const navigate = useNavigate();
   const toastId = "generation-status";
 
   const handleGetGenerationStatus = async () => {
@@ -14,7 +16,7 @@ const useGenerationStatus = () => {
   const pollGenrationStatus = (refetchFn: () => void) => {
     setTimeout(() => {
       refetchFn();
-    }, 30000);
+    }, 15000);
   };
 
   const getToastVariant = (item: any) => {
@@ -32,7 +34,16 @@ const useGenerationStatus = () => {
 
   const handleToastClick = (item: any) => {
     if (item.generation_status === "success") {
-      console.log("go to item");
+      switch (item.reference_type) {
+        case "course":
+          navigate(`/course/${item.reference_id}`);
+          break;
+        default:
+          console.error(
+            "No route found for reference_name: ",
+            item.reference_name
+          );
+      }
     }
   };
 
@@ -62,9 +73,6 @@ const useGenerationStatus = () => {
     position: "bottom-left" as ToastPosition,
     duration: null,
     isClosable: true,
-    containerStyle: {
-      backgroundColor: "#1A1C1E",
-    },
   });
 
   return {

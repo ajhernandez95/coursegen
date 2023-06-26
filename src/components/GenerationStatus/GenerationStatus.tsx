@@ -11,26 +11,25 @@ import useGetGenerationStatusQuery from "./hooks/useGetGenerationStatusQuery";
  */
 const GenerationStatus = () => {
   const { data, refetch } = useGetGenerationStatusQuery();
-  const { pollGenrationStatus, buildToastContent, toastConfig, toastId } =
-    useGenerationStatus();
+  const { pollGenrationStatus, toastConfig, toastId } = useGenerationStatus();
   const statusList: any[] = data?.data;
+  const hasPendingItems = () =>
+    statusList?.some((item) => item.generation_status === "in_progress");
   const toast = useToast();
   const toastIdRef = useRef<any>();
 
   useEffect(() => {
-    if (data?.data?.length || toast.isActive(toastId)) {
-      if (toastIdRef.current) {
-        toast.update(toastIdRef.current, toastConfig(data?.data));
-      }
-
-      if (
-        statusList?.some((item) => item.generation_status === "in_progress")
-      ) {
-        pollGenrationStatus(refetch);
-      }
+    if (hasPendingItems()) {
       if (!toast.isActive(toastId)) {
         toastIdRef.current = toast(toastConfig(data?.data));
       }
+
+      pollGenrationStatus(refetch);
+      if (toastIdRef.current) {
+        toast.update(toastIdRef.current, toastConfig(data?.data));
+      }
+    } else if (toast.isActive(toastId)) {
+      // setTimeout(() => toast.close(toastId), 15000);
     }
   }, [statusList, data]);
 
