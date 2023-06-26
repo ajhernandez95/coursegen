@@ -32,9 +32,10 @@ const CourseItem = ({
           <Link to={"/course/" + course.id}>
             <Button variant="solid">View</Button>
           </Link>
-          <Button variant="ghost" colorScheme="red">
+          {/* TODO */}
+          {/* <Button variant="ghost" colorScheme="red">
             Delete
-          </Button>
+          </Button> */}
         </ButtonGroup>
       </CardFooter>
     </Card>
