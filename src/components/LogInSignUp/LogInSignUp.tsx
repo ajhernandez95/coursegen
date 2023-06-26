@@ -31,7 +31,7 @@ const LogInSignUp: FC<LogInSignUpProps> = () => {
           <CardBody>
             <Auth
               supabaseClient={supabase}
-              providers={["google", "github"]}
+              providers={["google"]}
               appearance={{
                 theme: ThemeSupa,
                 style: {
