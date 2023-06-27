@@ -25,6 +25,8 @@ const useGenerationStatus = () => {
         return "green";
       case "timeout":
         return "red";
+      case "failure":
+        return "red";
       default:
         return "gray";
     }
