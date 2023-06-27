@@ -24,10 +24,7 @@ const Home = () => {
         <Box display="flex" flexDir="column" alignItems="center">
           <Spinner size={["lg", "xl"]} />
           <Text mt={5} textAlign="center">
-            Generating Course
-          </Text>
-          <Text mt={5} textAlign="center">
-            Estimated time: 1 min
+            Generating Course - estimated time 1 minute
           </Text>
         </Box>
       )}

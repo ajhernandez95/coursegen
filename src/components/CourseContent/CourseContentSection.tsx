@@ -16,7 +16,7 @@ const CourseContentSection = () => {
       height="100%"
     >
       <Spinner size={["lg", "xl"]} />
-      <Text mt={5}>Generating Lesson Content</Text>
+      <Text mt={5}>Generating Lesson Content - estimated time 1 minute</Text>
     </Box>
   );
 
