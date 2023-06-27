@@ -1,4 +1,4 @@
-import { Box, Text, Image } from "@chakra-ui/react";
+import { Box, Text, Image, Spinner } from "@chakra-ui/react";
 import { useCourseContext } from "../../context/CourseContext";
 import CourseContentSectionDetails from "./CourseContentSectionDetails";
 // TODO: Rename to CourseContentLesson
@@ -15,12 +15,7 @@ const CourseContentSection = () => {
       width="100%"
       height="100%"
     >
-      <Image
-        src="/dancing-owl.gif"
-        width={["100px", "100px", "200px"]}
-        height={["100px", "100px", "200px"]}
-        borderRadius="50%"
-      />
+      <Spinner size={["lg", "xl"]} />
       <Text mt={5}>Generating Lesson Content</Text>
     </Box>
   );

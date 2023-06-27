@@ -3,7 +3,7 @@ import CourseOutline from "../CourseOutline";
 import CourseSearch from "../CourseSearch";
 import { useCourseContext } from "../../context/CourseContext";
 import useCourseSearchQuery from "../CourseSearch/hooks/useCourseSearchQuery";
-import { Image } from "@chakra-ui/react";
+import { Image, Spinner } from "@chakra-ui/react";
 
 const Home = () => {
   const { isSearching, search } = useCourseContext();
@@ -22,12 +22,7 @@ const Home = () => {
     >
       {isSearching && (
         <Box display="flex" flexDir="column" alignItems="center">
-          <Image
-            src="/dancing-owl.gif"
-            borderRadius="50%"
-            width={["100px", "100px", "200px"]}
-            height={["100px", "100px", "200px"]}
-          />
+          <Spinner size={["lg", "xl"]} />
           <Text mt={5} textAlign="center">
             Generating Course
           </Text>
