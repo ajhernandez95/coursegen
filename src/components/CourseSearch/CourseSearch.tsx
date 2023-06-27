@@ -68,10 +68,6 @@ const CourseSearch = () => {
             <Button size={["md", "md", "lg"]} type="submit">
               Search
             </Button>
-            <Text>
-              Disclaimer: This is a prototype. The results are not guaranteed to
-              be accurate.
-            </Text>
           </Box>
         </form>
       </Box>

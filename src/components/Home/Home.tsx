@@ -26,6 +26,9 @@ const Home = () => {
           <Text mt={5} textAlign="center">
             Generating Course
           </Text>
+          <Text mt={5} textAlign="center">
+            Estimated time: 1 min
+          </Text>
         </Box>
       )}
       {!isSearching && !isSuccess && (
