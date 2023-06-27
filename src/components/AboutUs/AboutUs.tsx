@@ -33,6 +33,9 @@ const AboutUs = () => {
         <a href="https://twitter.com/coleywoleyyy">@coleywoleyyy</a> |
         cole@coursegen.ai
       </Text>
+      <Text>
+        Discord - <a href="https://discord.gg/9DH42eRH">CourseGen.AI</a>
+      </Text>
     </Box>
   );
 };
