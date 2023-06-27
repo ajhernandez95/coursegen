@@ -23,7 +23,15 @@ const useCourseContent = () => {
     setIsFetchingTopics,
   } = useCourseContext();
 
-  const getTopics = async (courseId: string, lessonId: string) => {
+  const getTopics = async (
+    courseId: string,
+    lessonId: string
+  ): Promise<
+    | {
+        [x: string]: any;
+      }[]
+    | null
+  > => {
     let topics;
     const { data } = await supabase
       .from("topic")
@@ -32,13 +40,11 @@ const useCourseContent = () => {
       .order("order_index", { ascending: true });
 
     topics = data;
-    if (!topics?.length) {
-      topics = await generateTopics({
-        courseId,
-        lessonId,
-      });
-    }
 
+    if (topics?.length === 0) {
+      await new Promise((resolve) => setTimeout(resolve, 10000));
+      return getTopics(courseId, lessonId);
+    }
     return topics;
   };
 
@@ -77,7 +83,6 @@ const useCourseContent = () => {
         const { data } = await getReq(
           `${endpoints.v1.course.get(courseId)}`
         ).then((res) => {
-          console.log(res);
           return res;
         });
 

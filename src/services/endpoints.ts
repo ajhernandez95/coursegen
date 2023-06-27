@@ -11,4 +11,9 @@ export default {
       get: "/api/v1/generationlogs",
     },
   },
+  v2: {
+    course: {
+      post: "/api/v2/courses",
+    },
+  },
 };
