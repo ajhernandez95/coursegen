@@ -34,14 +34,14 @@ const useGenerationStatus = () => {
 
   const getFormattedStatus = (status: any) => {
     switch (status) {
-      case 'in_progress':
-        return 'In Progress';
-      case 'success':
-        return 'Success';
-      case 'timeout':
-        return 'Timeout';
+      case "in_progress":
+        return "In Progress";
+      case "success":
+        return "Success";
+      case "timeout":
+        return "Timeout";
       default:
-        return 'Unknown';
+        return "Failure";
     }
   };
 
@@ -60,13 +60,15 @@ const useGenerationStatus = () => {
           cursor="pointer"
           onClick={() => handleToastClick(item)}
         >
-          {item.reference_type.charAt(0).toUpperCase() + item.reference_type.slice(1)} - {item.reference_name}{" "}
-        <Badge colorScheme={getToastVariant(item)} marginLeft="10px">
-          {getFormattedStatus(item.generation_status)}
-        </Badge>
-        {item.generation_status === "in_progress" && (
-          <Spinner marginLeft="5px" size="xs" />
-        )}
+          {item.reference_type.charAt(0).toUpperCase() +
+            item.reference_type.slice(1)}{" "}
+          - {item.reference_name}{" "}
+          <Badge colorScheme={getToastVariant(item)} marginLeft="10px">
+            {getFormattedStatus(item.generation_status)}
+          </Badge>
+          {item.generation_status === "in_progress" && (
+            <Spinner marginLeft="5px" size="xs" />
+          )}
         </Tag>
       ))}
     </Stack>
@@ -82,6 +84,8 @@ const useGenerationStatus = () => {
     isClosable: true,
     containerStyle: {
       backgroundColor: "#1A1C1E",
+      maxHeight: "100px",
+      overflow: "auto",
     },
   });
 
