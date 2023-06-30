@@ -5,6 +5,8 @@ import {
   ToastPosition,
   Badge,
   Text,
+  Box,
+  Flex,
 } from "@chakra-ui/react";
 import endpoints from "../../../services/endpoints";
 import { getReq } from "../../../services/httpClient";
@@ -67,23 +69,23 @@ const useGenerationStatus = () => {
           cursor="pointer"
           onClick={() => handleToastClick(item)}
           maxH="20px"
+          maxW="300px"
         >
-          <Text
-            maxH="20px"
-            overflowWrap="normal"
-            textOverflow="ellipsis"
-            overflowY="hidden"
-          >
-            {item.reference_type.charAt(0).toUpperCase() +
-              item.reference_type.slice(1)}{" "}
-            - {item.reference_name}{" "}
-            <Badge colorScheme={getToastVariant(item)} marginLeft="10px">
-              {getFormattedStatus(item.generation_status)}
-            </Badge>
-            {item.generation_status === "in_progress" && (
-              <Spinner marginLeft="5px" size="xs" />
-            )}
-          </Text>
+          {item.reference_type.charAt(0).toUpperCase() +
+            item.reference_type.slice(1)}{" "}
+          <Flex flex="1" justifyContent="space-between">
+            <Text isTruncated={true} maxW="100px">
+              - {item.reference_name}{" "}
+            </Text>
+            <Box>
+              <Badge colorScheme={getToastVariant(item)} marginLeft="10px">
+                {getFormattedStatus(item.generation_status)}
+              </Badge>
+              {item.generation_status === "in_progress" && (
+                <Spinner marginLeft="5px" size="xs" />
+              )}
+            </Box>
+          </Flex>
         </Tag>
       ))}
     </Stack>
