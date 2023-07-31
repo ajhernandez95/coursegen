@@ -10,6 +10,12 @@ export default {
     generationLogs: {
       get: "/api/v1/generationlogs",
     },
+    stripeCreateCheckoutSession: {
+      post: "/api/v1/stripe/create-checkout-session",
+    },
+    stripeCreatePortalSession: {
+      post: "/api/v1/stripe/create-portal-session",
+    }
   },
   v2: {
     course: {
