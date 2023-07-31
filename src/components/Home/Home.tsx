@@ -29,7 +29,7 @@ const Home = () => {
         </Box>
       )}
       {!isSearching && !isSuccess && (
-        <Box width="80%" maxWidth="600px">
+        <Box width={["100%", "80%"]} maxWidth="600px">
           <CourseSearch />
         </Box>
       )}
