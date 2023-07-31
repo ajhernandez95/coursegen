@@ -168,7 +168,7 @@ const CourseSearch = () => {
             <Text fontSize="md">
               Courses Created:{" "}
               <Text as="span" fontWeight="bold" color="green.500">
-                2/Unlimited
+              {courseCount}/Unlimited
               </Text>
             </Text>
             <Button
